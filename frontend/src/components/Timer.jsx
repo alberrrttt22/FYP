@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-const Timer = ({ timeLeft, setTimeLeft }) => {
+const Timer = ({ timeLeft, setTimeLeft, gameOver}) => {
   useEffect(() => {
-    if (timeLeft > 0) {
+    if (timeLeft > 0 && !gameOver) {
       const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
       return () => clearInterval(timer);
     }
-  }, [timeLeft, setTimeLeft]);
+  }, [timeLeft, setTimeLeft, gameOver]);
 
   return (
     <div className="text-center mb-4">

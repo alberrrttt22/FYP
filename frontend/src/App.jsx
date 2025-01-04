@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import Timer from './components/Timer';
 import GameGrid from './components/GameGrid';
+import BackgroundAudio from './components/BackgroundAudio';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
+  const [gameOver, setGameOver] = useState(false);
 
-  const startGame = () => setGameStarted(true);
+  const startGame = () => {
+    setGameStarted(true);
+    setGameOver(false); // Reset game over state when starting a new game
+    setTimeLeft(60); // Reset time when starting a new game
+  };
 
   return (
     <div className="flex">
@@ -25,12 +31,16 @@ function App() {
           </div>
         ) : (
           <>
-            <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} />
-            <GameGrid timeLeft={timeLeft} />
+          <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} gameOver={gameOver} />
+          <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft}  />
           </>
         )}
       </div>
+      
+      <BackgroundAudio  src="/sounds/subwaysurfers.mp3" />
+      
     </div>
+    
   );
 }
 
