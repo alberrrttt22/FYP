@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 
 const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
@@ -9,7 +10,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
   useEffect(() => {
     // Initialize cards with images
     const images = [
-      '../public/images/img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png',
+      'img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png',
     ];
     const shuffledCards = [...images, ...images]
       .sort(() => Math.random() - 0.5)
@@ -19,11 +20,25 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
   }, []);
 
   useEffect(() => {
+    if (gameOver && ((matchedCards.length === cards.length) && matchedCards.length!=0)) {
+      triggerConfetti(); // Show confetti when the game is won
+    }
+  }, [gameOver, matchedCards]);
+
+  useEffect(() => {
     // Check for game over when time runs out or all matches are found
     if (timeLeft <= 0 || ((matchedCards.length === cards.length) && matchedCards.length!=0)) {
       setGameOver(true);
     }
   }, [timeLeft, matchedCards, cards]);
+
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 400,
+      spread: 90,
+      origin: { x: 0.6, y: 0.6 }, // Adjust origin point for better visual effect
+    });
+  };
 
   const handleCardClick = (id) => {
     if (flippedCards.length === 2 || matchedCards.includes(id) || flippedCards.includes(id)) return;
