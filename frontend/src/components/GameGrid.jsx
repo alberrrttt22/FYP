@@ -6,6 +6,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [points, setPoints] = useState(0);
 
   useEffect(() => {
     // Initialize cards with images
@@ -51,6 +52,14 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
       const [first, second] = newFlippedCards;
       if (cards[first].img === cards[second].img) {
         setMatchedCards([...matchedCards, first, second]);
+        playCorrectSound();
+        setPoints(points + 1);
+         // Trigger floating symbol animation
+         const lastCardElement = document.getElementById(`card-${second}`);
+         const rect = lastCardElement.getBoundingClientRect();
+         setFloatingSymbol({ show: true, x: rect.left, y: rect.top });
+ 
+         setTimeout(() => setFloatingSymbol({ show: false, x: 0, y: 0 }), 1000);
       }
       setTimeout(() => setFlippedCards([]), 350);
     }
@@ -61,6 +70,10 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
     flipSound.play();
   };
 
+  const playCorrectSound = () => {
+    const correctSound = new Audio('/sounds/correct-flip.mp3');
+    correctSound.play();
+  }
   const resetGame = () => {
     const images = [
       'img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png',
@@ -74,9 +87,10 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
     setFlippedCards([]);
     setGameOver(false);
     setTimeLeft(60);
+    setPoints(0);
   };
 
-  return gameOver ? (
+  return gameOver ? ( 
     <div className="text-center">
       <h2 className="text-2xl font-bold">
         {matchedCards.length === cards.length ? 'You Win!' : 'Game Over'}
@@ -91,12 +105,13 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
     
   ) : (
     <div>
+      <p>Points: {points}</p>
       <button
       onClick={resetGame}
       className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
-    >
+      >
       Restart Game
-    </button>
+      </button>
     <div className="grid grid-cols-4 gap-4">
       {cards.map((card, index) => (
         <div
