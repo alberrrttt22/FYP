@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Timer from './components/Timer';
 import GameGrid from './components/GameGrid';
 import BackgroundAudio from './components/BackgroundAudio';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -16,9 +17,11 @@ function App() {
   };
 
   return (
+    <Router>
     <div className="flex">
       <Sidebar />
       <div className="flex-1 p-5">
+        <Routes>
         <h1 className="text-center text-2xl font-bold mb-4">Memory Training</h1>
         {!gameStarted ? (
           <div className="flex flex-col items-center">
@@ -35,12 +38,13 @@ function App() {
           <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft}  />
           </>
         )}
+        </Routes>
       </div>
       
       <BackgroundAudio  src="/sounds/subwaysurfers.mp3" />
       
     </div>
-    
+    </Router>
   );
 }
 
