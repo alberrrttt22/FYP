@@ -5,6 +5,13 @@ import GameGrid from './components/GameGrid';
 import BackgroundAudio from './components/BackgroundAudio';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// Page components
+import GameModes from './components/GameModes';
+import Dashboard from './components/Dashboard';
+import FlashcardMode from './components/FlashcardMode';
+import Settings from './components/Settings';
+import SignOut from './components/SignOut';
+
 function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
@@ -22,6 +29,8 @@ function App() {
       <Sidebar />
       <div className="flex-1 p-5">
         <Routes>
+        <Route path="/" element = {
+        <>
         <h1 className="text-center text-2xl font-bold mb-4">Memory Training</h1>
         {!gameStarted ? (
           <div className="flex flex-col items-center">
@@ -38,13 +47,19 @@ function App() {
           <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft}  />
           </>
         )}
+        </>
+        } />
+        <Route path="/game-modes" element={<GameModes />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/flashcard-mode" element={<FlashcardMode />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/sign-out" element={<SignOut />} />
         </Routes>
       </div>
-      
       <BackgroundAudio  src="/sounds/subwaysurfers.mp3" />
-      
     </div>
     </Router>
+    
   );
 }
 
