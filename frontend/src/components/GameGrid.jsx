@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
-const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
+const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty }) => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
@@ -9,15 +9,16 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
 
   useEffect(() => {
-    const images = [
-      'img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png',
-    ];
-    const shuffledCards = [...images, ...images]
+    const images = {
+      1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
+      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png', '2img10.png'],
+      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png', '3img13.png', '3img14.png']
+    };
+    const shuffledCards = [...images[difficulty], ...images[difficulty]]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
-
     setCards(shuffledCards);
-  }, []);
+  }, [difficulty]);
 
   useEffect(() => {
     if (gameOver && matchedCards.length === cards.length && matchedCards.length !== 0) {
@@ -80,11 +81,13 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
     }
   };
 
-  const resetGame = () => {
-    const images = [
-      'img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png',
-    ];
-    const shuffledCards = [...images, ...images]
+  const resetGame = (level) => {
+    const images = {
+      1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
+      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png', '2img10.png'],
+      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png', '3img13.png', '3img14.png']
+    };
+    const shuffledCards = [...images[difficulty], ...images[difficulty]]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
 
@@ -94,6 +97,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
     setGameOver(false);
     setTimeLeft(60);
     setPoints(0);
+    setDifficulty(level);
   };
 
   return gameOver ? (
@@ -101,14 +105,29 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
       <p>Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
       <br></br>
       <h2 className="text-2xl font-bold">
-        {matchedCards.length === cards.length ? 'You Win!' : 'Game Over'}
+        {matchedCards.length === cards.length ? 'You Win! Play again?' : 'Game Over! Play again?'}
       </h2>
-      <button
-        onClick={resetGame}
-        className="bg-blue-500 text-white p-3 rounded mt-4 hover:bg-blue-600"
-      >
-        Play Again
-      </button>
+      <br></br>
+      <div className="flex flex-row justify-center items-center gap-4">
+            <button
+              onClick={() => resetGame(1)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+            >
+              Easy
+            </button>
+            <button
+              onClick={() => resetGame(2)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+            >
+              Medium
+            </button>
+            <button
+              onClick={() => resetGame(3)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+            >
+              Hard
+            </button>
+          </div>
     </div>
   ) : (
     <div>
@@ -116,11 +135,21 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft }) => {
       <p>Points: {points}</p>
       </div>
       <button
-        onClick={resetGame}
+        onClick={() => resetGame()}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
       >
         Restart Game
       </button>
+      <div className="absolute top-11 right-0 m-4">
+          <select
+            onChange={(e) => resetGame(parseInt(e.target.value))}
+            className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
+          >
+            <option value="1">Easy</option>
+            <option value="2">Medium</option>
+            <option value="3">Hard</option>
+          </select>
+      </div>
       <div className="grid grid-cols-4 gap-4">
         {cards.map((card, index) => (
           <div

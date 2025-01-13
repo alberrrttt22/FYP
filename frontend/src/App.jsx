@@ -16,11 +16,13 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const [gameOver, setGameOver] = useState(false);
+  const [difficulty, setDifficulty] = useState(0);
 
-  const startGame = () => {
+  const difficultyChange = (level) => {
     setGameStarted(true);
     setGameOver(false); // Reset game over state when starting a new game
     setTimeLeft(60); // Reset time when starting a new game
+    setDifficulty(level);
   };
 
   return (
@@ -33,18 +35,30 @@ function App() {
         <>
         <h1 className="text-center text-2xl font-bold mb-4">Memory Training</h1>
         {!gameStarted ? (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-row justify-center items-center gap-4">
             <button
-              onClick={startGame}
-              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4"
+              onClick={() =>difficultyChange(1)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
             >
-              Start Game
+              Easy
+            </button>
+            <button
+              onClick={() => difficultyChange(2)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+            >
+              Medium
+            </button>
+            <button
+              onClick={() =>difficultyChange(3)}
+              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+            >
+              Hard
             </button>
           </div>
         ) : (
           <>
           <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} totalTime={60} gameOver={gameOver} />
-          <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft}  />
+          <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft} difficulty = {difficulty} setDifficulty={setDifficulty}  />
           </>
         )}
         </>
