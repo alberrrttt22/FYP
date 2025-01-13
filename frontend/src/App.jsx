@@ -43,7 +43,7 @@ function App() {
           </div>
         ) : (
           <>
-          <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} gameOver={gameOver} />
+          <Timer timeLeft={timeLeft} setTimeLeft={setTimeLeft} totalTime={60} gameOver={gameOver} />
           <GameGrid timeLeft={timeLeft} gameOver = {gameOver} setGameOver={setGameOver} setTimeLeft = {setTimeLeft}  />
           </>
         )}
