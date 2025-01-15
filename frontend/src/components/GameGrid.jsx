@@ -135,7 +135,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
       <p>Points: {points}</p>
       </div>
       <button
-        onClick={() => resetGame()}
+        onClick={() => resetGame(difficulty)}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
       >
         Restart Game
