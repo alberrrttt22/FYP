@@ -21,6 +21,8 @@ body, html, #root {
 }
 
 .app-container {
+  position: relative;
+  overflow: hidden;
   background-image: url('/public/images/background.jpg'); /* Path to the background image */
   background-size: cover; /* Ensures the image covers the entire screen */
   background-position: center; /* Centers the background image */
@@ -31,10 +33,39 @@ body, html, #root {
   justify-content: center; /* Centers the Play button horizontally */
   align-items: center; /* Centers the Play button vertically */
   margin: 0; /* Removes default margin */
+  transition: transform 2s ease-in-out;
+}
+
+.app-container.slide-up {
+  transform: translateY(-100vh);
 }
 
 .play-button img:hover {
   transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.bubble {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(0);
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  animation: bubble-rise 2s ease-in infinite;
+  opacity: 0;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
 }
 
 * {
@@ -44,4 +75,3 @@ body, html, #root {
 button, a, .play-button, .clickable {
   cursor: url('/public/images/cursor.cur'), auto !important;
 }
-
