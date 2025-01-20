@@ -16,15 +16,14 @@ const BackgroundAudio = ({ src }) => {
 
   return (
     <div>
-    <button className="fixed bottom-4 right-4 text-white px-4 py-2 rounded-full w-16 h-16 shadow-md hover:bg-gray-300 transition duration-200"
-      onClick={() => setIsMuted((prev) => !prev)}
-    >
-      <img
-          src={isMuted ? '/images/mute-icon.png' : '/images/unmute-icon.png'}
-          alt={isMuted ? 'Muted' : 'Unmuted'}
-          className="w-10 h-10" // Adjust size as needed
-        />
-    </button>
+    
+    <img
+        src={isMuted ? '/images/unmute-icon.png' : '/images/mute-icon.png'}
+        alt={isMuted ? 'Muted' : 'Unmuted'}
+        className="w-8 h-8 z-50 fixed bottom-4 right-4 cursor-pointer rounded-full hover:bg-gray-300 transition duration-200"
+        onClick={() => setIsMuted((prev) => !prev)}
+      />
+    
     </div>
   );
 };
