@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const BackgroundAudio = ({ src }) => {
   const [isMuted, setIsMuted] = useState(false); // Start unmuted
   const [userInteracted, setUserInteracted] = useState(false); // Track user interaction
-  const [bgm] = useState(() => new Audio(src)); // Initialize audio
+  const [bgm, setBgm] = useState(() => new Audio(src)); // Initialize audio
 
   useEffect(() => {
     const handleUserInteraction = () => {
@@ -30,7 +30,16 @@ const BackgroundAudio = ({ src }) => {
     return () => bgm.pause(); // Cleanup on unmount
   }, [isMuted, userInteracted, bgm]);
 
-
+  useEffect(() => {
+    bgm.pause();
+    const newBgm = new Audio(src); 
+    setBgm(newBgm); 
+    newBgm.loop = true; 
+    if (!isMuted && userInteracted) {
+      newBgm.play().catch((err) => console.error('Error playing audio:', err));
+    }
+    return () => newBgm.pause(); // Cleanup
+  }, [src]); 
 
   return (
     <div>

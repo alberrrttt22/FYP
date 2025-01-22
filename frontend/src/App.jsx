@@ -46,7 +46,7 @@ const App = () => {
           style={{ left: bubble.left }}
         />
       ))}
-      <BackgroundAudio src="/sounds/oceansofserenity.mp3" />
+      {/* <BackgroundAudio src="/sounds/oceansofserenity.mp3" /> */}
     </div>
   );
 };
