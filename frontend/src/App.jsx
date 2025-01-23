@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import BackgroundAudio from './components/BackgroundAudio.jsx'
-import { useNavigate } from 'react-router-dom';
+// import BackgroundAudio from './components/BackgroundAudio.jsx'
+import { useNavigate} from 'react-router-dom';
 
 const App = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const App = () => {
     setBackgroundSlide(true);
     setTimeout(() => {
       navigate('/GameModes');
-    }, 2000);
+    }, 1000);
   };
 
   const createBubbles = () => {
@@ -35,7 +35,7 @@ const App = () => {
     <div className={`app-container ${backgroundSlide ? 'slide-up' : ''}`}>
       <div className="play-button" onClick={handlePlayButtonClick}>
         <img 
-          src="/public/images/start-button.png" 
+          src="/images/start-button.png" 
           alt="Play Button" 
           className="w-50 rounded-md hover:scale-110 transition-transform duration-300 cursor-pointer" />
       </div>
