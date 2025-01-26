@@ -15,7 +15,7 @@ const App = () => {
     setBackgroundSlide(true);
     setTimeout(() => {
       navigate('/GameModes');
-    }, 1000);
+    }, 50);
   };
 
   const createBubbles = () => {
