@@ -8,7 +8,7 @@ const GameModes = () => {
         <h1 className="game-mode-title">Choose your game mode</h1>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/path/to/sound/memory/image.png" alt="Sound Memory" onClick={() => handleGameMode('sound')} />
+            <img className="game-logo" src="/images/soundmemory.jpg" alt="Sound Memory" onClick={() => handleGameMode('sound')} />
             <div className="game-description">
               <h3>Sound Memory</h3>
               <p>Train your memory by matching sounds. Sharpen your auditory skills!</p>
@@ -26,7 +26,7 @@ const GameModes = () => {
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/path/to/flashcard/image.png" alt="Flashcard Mode" onClick={() => handleGameMode('flashcard')} />
+            <img className="game-logo" src="/images/flashcardmode1.jpg" alt="Flashcard Mode" onClick={() => handleGameMode('flashcard')} />
             <div className="game-description">
               <h3>Flashcard Mode</h3>
               <p>Enhance your memory with customizable flashcard games.</p>
