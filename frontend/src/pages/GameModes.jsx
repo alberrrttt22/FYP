@@ -1,7 +1,13 @@
 import React from 'react'; 
 import '../styles/GameModes.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const GameModes = () => {
+  const navigate = useNavigate(); // Hook for navigation
+  const handleGameMode = (gameMode) => {
+    navigate(`/${gameMode}`)
+    };
+
   return (
     <div className="container">
       <div className="game-mode-container">
@@ -17,7 +23,7 @@ const GameModes = () => {
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/visualmemory.jpg" alt="Visual Memory" onClick={() => handleGameMode('photo')} />
+            <img className="game-logo" src="/images/visualmemory.jpg" alt="Visual Memory" onClick={() => handleGameMode('VisualGame')} />
             <div className="game-description">
               <h3>Visual Memory</h3>
               <p>Improve your visual recall with fun, photo-based memory challenges.</p>
@@ -38,12 +44,6 @@ const GameModes = () => {
   );
 };
 
-const handleGameMode = (gameMode) => {
-  // Navigate to the corresponding game screen
-  // Example using React Router:
-  // useHistory hook (if using useHistory)
-  // useNavigate hook (if using useNavigate)
-  // ... navigation logic ...
-};
+
 
 export default GameModes;

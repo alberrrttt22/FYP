@@ -81,3 +81,11 @@ body, html, #root {
     font-size: 1rem;
     color: #666; /* Optional: Adjust color for better readability */
   }
+
+  .game-logo {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .game-logo:hover {
+    transform: scale(1.1);
+  }

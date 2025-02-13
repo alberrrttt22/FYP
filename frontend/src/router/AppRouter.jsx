@@ -4,6 +4,7 @@ import { useLocation, BrowserRouter as Router, Routes, Route } from 'react-route
 import Home from '../App.jsx';
 import GameModes from '../pages/GameModes.jsx';
 import BackgroundAudio from '../components/BackgroundAudio.jsx';
+import VisualGame from '../pages/VisualGame.jsx';
 
 const AppRouter = () => {
 
@@ -25,6 +26,7 @@ const AppRouter = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/GameModes" element={<GameModes />} />
+      <Route path="/VisualGame" element={<VisualGame />} />
     </Routes>
     </div>
   );
