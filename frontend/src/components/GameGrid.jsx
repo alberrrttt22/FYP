@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import StartScreen from'./StartScreen';
 
 const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty }) => {
   const [cards, setCards] = useState([]);
@@ -11,8 +12,8 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   useEffect(() => {
     const images = {
       1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
-      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png', '2img10.png'],
-      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png', '3img13.png', '3img14.png']
+      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png'],
+      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png']
     };
     const shuffledCards = [...images[difficulty], ...images[difficulty]]
       .sort(() => Math.random() - 0.5)
@@ -84,8 +85,8 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   const resetGame = (level) => {
     const images = {
       1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
-      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png', '2img10.png'],
-      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png', '3img13.png', '3img14.png']
+      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png'],
+      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png']
     };
     const shuffledCards = [...images[difficulty], ...images[difficulty]]
       .sort(() => Math.random() - 0.5)
@@ -102,9 +103,10 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
 
   return gameOver ? (
     <div className="text-center">
+      <StartScreen setDifficulty={setDifficulty} />
       <p>Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
       <br></br>
-      <h2 className="text-2xl font-bold">
+      <h2 className="text-white text-2xl font-bold">
         {matchedCards.length === cards.length ? 'You Win! Play again?' : 'Game Over! Play again?'}
       </h2>
       <br></br>
@@ -150,7 +152,12 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
             <option value="3">Hard</option>
           </select>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div
+  className={`grid gap-4`}
+  style={{
+    gridTemplateColumns: `repeat(${Math.ceil(cards.length / 3)}, 1fr)`, // Ensure 3 rows
+  }}
+>
         {cards.map((card, index) => (
           <div
             key={index}
@@ -177,7 +184,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
       </div>
       {floatingPoint.visible && (
         <div
-          className="absolute transform -translate-x-1/2 text-green-500 font-bold text-xl animate-floatUp"
+          className="absolute transform -translate-x-1/2 text-green-500 font-bold animate-floatUp text-3xl"
           style={{
             left: floatingPoint.position.x,
             top: floatingPoint.position.y,

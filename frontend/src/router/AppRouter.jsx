@@ -13,8 +13,8 @@ const AppRouter = () => {
 
   useEffect(() => {
     // Update the audio source based on the current location
-    if (location.pathname === '/GameModes') {
-      setAudioSrc('/sounds/oceansofserenity.mp3'); // Different audio for GameModes page
+    if (location.pathname === '/VisualGame') {
+      setAudioSrc('/sounds/oceansofserenityupbeat.mp3'); // Different audio for GameModes page
     } else {
       setAudioSrc('/sounds/oceansofserenity.mp3'); // Default audio for other pages
     }

@@ -13,7 +13,7 @@ const Timer = ({ timeLeft, setTimeLeft, totalTime, gameOver }) => {
 
   return (
     <div className="text-center mb-4">
-      <h2 className="text-lg font-semibold">Time Left: {timeLeft}s</h2>
+      <h2 className="text-lg font-semibold text-white">Time Left: {timeLeft}s</h2>
       <div className="w-full h-4 bg-gray-300 rounded-full overflow-hidden mt-2">
         <div
           className="h-full bg-teal-500 transition-all duration-1000 ease-linear"
