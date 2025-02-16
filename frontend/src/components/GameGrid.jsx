@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import StartScreen from'./StartScreen';
 
-const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty }) => {
+const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty, gameStarted, setGameStarted }) => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [points, setPoints] = useState(0);
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
+
 
   useEffect(() => {
     const images = {
@@ -102,8 +103,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   };
 
   return gameOver ? (
-    <div className="text-center">
-      <StartScreen setDifficulty={setDifficulty} />
+    <div className="vg-header text-center">
       <p>Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
       <br></br>
       <h2 className="text-white text-2xl font-bold">
@@ -134,7 +134,8 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   ) : (
     <div>
       <div className = "text-center">
-      <p>Points: {points}</p>
+      {!gameStarted && <StartScreen setDifficulty={setDifficulty} setGameStarted={setGameStarted} />}
+      <p className="vg-header">Points: {points}</p>
       </div>
       <button
         onClick={() => resetGame(difficulty)}

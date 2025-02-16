@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 
-const Timer = ({ timeLeft, setTimeLeft, totalTime, gameOver }) => {
+const Timer = ({ timeLeft, setTimeLeft, totalTime, gameOver, gameStarted }) => {
   useEffect(() => {
-    if (timeLeft > 0 && !gameOver) {
+    if (gameStarted && timeLeft > 0 && !gameOver) {
       const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
       return () => clearInterval(timer);
     }
-  }, [timeLeft, setTimeLeft, gameOver]);
+  }, [timeLeft, setTimeLeft, gameOver, gameStarted]);
 
   // Calculate the width percentage of the timer bar
   const barWidth = (timeLeft / totalTime) * 100;
