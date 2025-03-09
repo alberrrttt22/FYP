@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('fonts/slkscr.ttf') format('truetype'),
+       url('fonts/slkscrb.ttf') format('truetype'); /* Bold version */
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Silkscreen', sans-serif;
+}
+
 body, html, #root {
   margin: 0;
   padding: 0;

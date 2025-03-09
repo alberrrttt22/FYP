@@ -14,7 +14,7 @@ const GameModes = () => {
         <h1 className="game-mode-title">Choose your game mode</h1>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/soundmemory.jpg" alt="Sound Memory" onClick={() => handleGameMode('sound')} />
+            <img className="game-logo" src="/images/soundmemory.jpg" alt="Sound Memory" onClick={() => handleGameMode('SoundGame')} />
             <div className="game-description">
               <h3>Sound Memory</h3>
               <p>Train your memory by matching sounds. Sharpen your auditory skills!</p>

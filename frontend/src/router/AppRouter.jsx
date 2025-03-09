@@ -5,6 +5,7 @@ import Home from '../App.jsx';
 import GameModes from '../pages/GameModes.jsx';
 import BackgroundAudio from '../components/BackgroundAudio.jsx';
 import VisualGame from '../pages/VisualGame.jsx';
+import SoundGame from '../pages/SoundGame.jsx';
 
 const AppRouter = () => {
 
@@ -27,6 +28,7 @@ const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="/GameModes" element={<GameModes />} />
       <Route path="/VisualGame" element={<VisualGame />} />
+      <Route path="/SoundGame" element={<SoundGame />} />
     </Routes>
     </div>
   );

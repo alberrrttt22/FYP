@@ -113,19 +113,19 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
       <div className="flex flex-row justify-center items-center gap-4">
             <button
               onClick={() => resetGame(1)}
-              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-green-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
             >
               Easy
             </button>
             <button
               onClick={() => resetGame(2)}
-              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-yellow-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
             >
               Medium
             </button>
             <button
               onClick={() => resetGame(3)}
-              className="bg-blue-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-red-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
             >
               Hard
             </button>
@@ -134,7 +134,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   ) : (
     <div>
       <div className = "text-center">
-      {!gameStarted && <StartScreen setDifficulty={setDifficulty} setGameStarted={setGameStarted} />}
+      
       <p className="vg-header">Points: {points}</p>
       </div>
       <button
@@ -145,6 +145,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
       </button>
       <div className="absolute top-11 right-0 m-4">
           <select
+            value={difficulty}
             onChange={(e) => resetGame(parseInt(e.target.value))}
             className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
           >

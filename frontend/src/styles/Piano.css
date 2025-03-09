@@ -1,0 +1,57 @@
+.piano {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #222;
+    gap: 2px;
+}
+
+/*White Keys */
+.piano-key{
+    position: relative;
+    width: 50px;
+    height: 180px;
+    border: 2px solid black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s ease;
+}
+
+.piano-key.white.active{
+    background: #ddd;
+}
+
+/* Black Keys */
+.piano-key.black{
+    position: absolute;
+    width: 30px;
+    height: 110px;
+    background: black;
+    color: white;
+    top: 0;
+    left: 37px;
+    z-index: 2;
+    border-radius: 5px 5px 3px 3px;
+}
+
+.piano-key.black.active{
+    background: #333;
+}
+
+/* Specific positioning for black keys */
+.piano-key:nth-child(2){left:35px;} /*C#6*/
+.piano-key:nth-child(4){left:85px;} /*D#6*/
+.piano-key:nth-child(7){left:185px;} /*F#6*/
+.piano-key:nth-child(9){left:235px;} /*G#6*/
+.piano-key:nth-child(11){left:285px;} /*A#6*/
+
+.piano-key:active {
+    transform:scale(0.95);
+}
