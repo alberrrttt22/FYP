@@ -3,36 +3,49 @@ import "../styles/Piano.css";
 
 const Piano = ({onNotePlayed}) => {
     const notes = [
-        { key: "C6", type: "white", keyBinding: "a" },
-        { key: "C#6", type: "black", keyBinding: "w" },
-        { key: "D6", type: "white", keyBinding: "s" },
-        { key: "D#6", type: "black", keyBinding: "e" },
-        { key: "E6", type: "white", keyBinding: "d" },
-        { key: "F6", type: "white", keyBinding: "f" },
-        { key: "F#6", type: "black", keyBinding: "t" },
-        { key: "G6", type: "white", keyBinding: "g" },
-        { key: "G#6", type: "black", keyBinding: "y" },
-        { key: "A6", type: "white", keyBinding: "h" },
-        { key: "A#6", type: "black", keyBinding: "u" },
-        { key: "B6", type: "white", keyBinding: "j" }
+        { key: "c4", type: "white", keyBinding: "a" },
+        { key: "c#4", type: "black", keyBinding: "w" },
+        { key: "d4", type: "white", keyBinding: "s" },
+        { key: "d#4", type: "black", keyBinding: "e" },
+        { key: "e4", type: "white", keyBinding: "d" },
+        { key: "f4", type: "white", keyBinding: "f" },
+        { key: "f#4", type: "black", keyBinding: "t" },
+        { key: "g4", type: "white", keyBinding: "j" },
+        { key: "g#4", type: "black", keyBinding: "i" },
+        { key: "a4", type: "white", keyBinding: "k" },
+        { key: "a#4", type: "black", keyBinding: "o" },
+        { key: "b4", type: "white", keyBinding: "l" },
+        { key: "c5", type: "white", keyBinding: ";" }
       ];
 
       const [activeKey, setActiveKey] = useState(null);
 
       const noteSounds = notes.reduce((acc, note) => {
-        acc[note.key] = new Audio('/sounds/piano/${note.key}.mp3');
+        const safeKey = note.key.replace("#", "sharp");
+      
+        // Create an array of audio instances to allow overlapping
+        acc[note.key] = Array.from({ length: 1 }, () => new Audio(`/sounds/piano/${safeKey}.mp3`));
+        
         return acc;
       }, {});
-
+      
+      let playIndex = {}; // Keeps track of which instance to play next
+      
       const playNote = (note) => {
-        if (noteSounds[note]){
-            noteSounds[note].currentTime = 0;
-            noteSounds[note].play();
+        if (noteSounds[note]) {
+          if (!playIndex[note]) playIndex[note] = 0; // Initialize play index
+      
+          const audio = noteSounds[note][playIndex[note]]; // Get the next audio instance
+          audio.currentTime = 0; 
+          audio.play();
+      
+          playIndex[note] = (playIndex[note] + 1) % noteSounds[note].length; // Cycle through instances
         }
+      
         setActiveKey(note);
         onNotePlayed && onNotePlayed(note);
         setTimeout(() => setActiveKey(null), 200);
-      };
+      }
 
       const handleKeyPress = (event) => {
         const note = notes.find((n) => n.keyBinding === event.key)?.key;  //'?' makes it so that if find() returns undefined, note will be set to undefined and wont throw an error

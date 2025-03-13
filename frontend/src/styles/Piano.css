@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: #222;
+    background: #ddd;
     gap: 2px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .piano-key.white.active{
-    background: #ddd;
+    background: #555;
 }
 
 /* Black Keys */
@@ -42,7 +42,7 @@
 }
 
 .piano-key.black.active{
-    background: #333;
+    background: #777;
 }
 
 /* Specific positioning for black keys */
@@ -55,3 +55,22 @@
 .piano-key:active {
     transform:scale(0.95);
 }
+
+.level-up-animation {
+    animation: floatUp 1.5s ease-in-out forwards;
+  }
+  
+  @keyframes floatUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+  }
