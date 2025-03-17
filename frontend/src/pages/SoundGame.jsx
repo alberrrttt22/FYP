@@ -15,14 +15,20 @@ const SoundGame = () => {
         <div className='sg-container flex flex-col items-center'>
             <h1 className="vg-header text-3xl font-bold mb-4">Sound Quest</h1>
             
-            {/*Show start screen if game hasn't started yet */}
-            {!gameStarted && (
+            {!gameStarted ? (
                 <PianoStartScreen setGameMode = {setGameMode} setGameStarted={setGameStarted} />
-            )}
-
-            {gameStarted && gameMode == "freeplay" && <Piano />}
-
-            {gameStarted && gameMode == "challenge" && <PianoChallengeMode />}
+            ):(
+                <div>
+                {gameMode === "freeplay" ? <Piano setGameMode={setGameMode} gameMode = {gameMode} /> : <PianoChallengeMode setGameMode={setGameMode} gameMode = {gameMode}/>}
+                <Link
+                          to="/GameModes"
+                          className="font-bold absolute top-1 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700"
+                        >
+                          ⬅ Back to Game Modes
+                </Link>
+                </div>
+            )
+            }
         </div>
     )
 }
