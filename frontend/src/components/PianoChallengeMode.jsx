@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/Piano.css";
 import { useNavigate } from "react-router-dom";
 
-const Piano = ({ onNotePlayed, setGameMode, gameMode}) => {
+const PianoChallengeMode = ({ onNotePlayed, setGameMode, gameMode}) => {
   const notes = [
     { key: "c4", type: "white", keyBinding: "a" },
     { key: "c#4", type: "black", keyBinding: "w" },
@@ -31,6 +31,38 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode}) => {
   // Store audio instances in useRef to avoid recreating them on every render
   const noteSounds = useRef({});
 
+  const startGame = () => {
+    setSequence([]);
+    setUserInput([]);
+    setLevel(1);
+    setMistakes(0);
+    setMessage("Remember these notes");
+    setIsUserTurn(false);
+    generateSequence(1); // Start the game with level 1
+  };
+
+  const endGame = () => {
+    setSequence([]);
+    setUserInput([]);
+    setIsUserTurn(false);
+    
+    //Stop and reset all audio
+    Object.values(noteSounds.current).forEach((audio) => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+
+    //Clear all running timeouts and intervals
+
+    let highestTimeoutId = setTimeout(()=> {});
+
+    for (let i = 0; i <= highestTimeoutId; i++){
+      clearTimeout(i);
+      clearInterval(i);
+    }
+  };
+
+
   useEffect(() => {
     // Preload audio files once
     noteSounds.current = notes.reduce((acc, note) => {
@@ -42,11 +74,7 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode}) => {
     }, {});
 
     return () => {
-      // Cleanup: Pause all audio when component unmounts
-      Object.values(noteSounds.current).forEach((audio) => {
-        audio.pause();
-        audio.currentTime = 0;
-      });
+      endGame();
     };
   }, []);
 
@@ -112,32 +140,31 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode}) => {
         setTimeout(() => {
           setIsUserTurn(true);
           setMessage("Your turn! Play the same notes");
-        }, 1000); // Give some time before user's turn
+        }, 500); // Give some time before user's turn
       }
     }, 1000); // Delay between notes
   };
-
-  const startGame = () => {
-    setSequence([]);
-    setUserInput([]);
-    setLevel(1);
-    setMistakes(0);
-    setMessage("Remember these notes");
-    setIsUserTurn(false);
-    generateSequence(1); // Start the game with level 1
-  };
-
+  
   useEffect(() => {
-    startGame(); // Start game when component mounts
-    document.addEventListener("keydown", handleKeyPress); // Add key press event listener
+    console.log("User turn changed:", isUserTurn);
+  }, [isUserTurn]);
+
+  useEffect(()=>{
+    startGame();
     return () => {
       document.removeEventListener("keydown", handleKeyPress); // Cleanup on unmount
       Object.values(noteSounds.current).forEach((audio) => {
         audio.pause();
         audio.currentTime = 0;
-      });
+    });
+  };
+  },[]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress); // Add key press event listener
+    return () => {
     };
-  }, []); // Empty dependency array ensures it runs only once
+  }, [isUserTurn]);
 
   return (
     <div className="piano-container">
@@ -178,4 +205,4 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode}) => {
   );
 };
 
-export default Piano;
+export default PianoChallengeMode;

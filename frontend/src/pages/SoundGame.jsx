@@ -4,6 +4,7 @@ import '../styles/SoundGame.css';
 import Piano from '../components/Piano.jsx';
 import PianoStartScreen from '../components/PianoStartScreen.jsx';
 import PianoChallengeMode from '../components/PianoChallengeMode.jsx';
+import PianoChallenge from '../components/PianoChallenge.jsx';
 
 const SoundGame = () => {
 

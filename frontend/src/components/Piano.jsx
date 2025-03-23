@@ -41,29 +41,38 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
     };
   }, []);
 
-  const playNote = (note) => {
-    const audio = noteSounds.current[note];
-    if (audio && audio.readyState >= 3) {
-      audio.currentTime = 0; // Reset the playback time to start immediately
-      audio.play();
-    }
-
-    setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
-    onNotePlayed && onNotePlayed(note);
-  };
-
   const handleKeyPress = (event) => {
-    const note = notes.find((n) => n.keyBinding === event.key)?.key;
+    const pressedKey = event.key.toLowerCase();
+    const note = notes.find((n) => n.keyBinding === pressedKey)?.key;
     if (note && !activeKeys.includes(note)) {
       playNote(note);
     }
   };
 
   const handleKeyRelease = (event) => {
-    const note = notes.find((n) => n.keyBinding === event.key)?.key;
+    const releasedKey = event.key.toLowerCase();
+    const note = notes.find((n) => n.keyBinding === releasedKey)?.key;
     if (note) {
       setActiveKeys((prevKeys) => prevKeys.filter((key) => key !== note));
     }
+  };
+
+  const playNote = (note) => {
+    const audio = noteSounds.current[note]; 
+    if (audio) {
+      if (!audio.paused) {
+        // If the same key is already playing, clone it to allow overlap
+        const newAudio = audio.cloneNode();
+        newAudio.play();
+      } else {
+        // Otherwise, just play normally
+        audio.currentTime = 0;
+        audio.play();
+      }
+    }
+  
+    setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
+    onNotePlayed && onNotePlayed(note);
   };
 
   useEffect(() => {
