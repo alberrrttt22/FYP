@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Piano.css";
+import PianoChallenge from "./PianoChallenge";
+import SongLearner from "./SongLearner";
 
-const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
+const Piano = ({ setGameMode, gameMode }) => {
   const notes = [
     { key: "c4", type: "white", keyBinding: "a" },
     { key: "c#4", type: "black", keyBinding: "w" },
@@ -19,6 +21,8 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
   ];
 
   const [activeKeys, setActiveKeys] = useState([]);
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [notePlayed, setNotePlayed] = useState(null);
   
   const noteSounds = useRef({});
 
@@ -72,7 +76,9 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
     }
   
     setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
-    onNotePlayed && onNotePlayed(note);
+    setNotePlayed(null);
+    setTimeout(() => setNotePlayed(note), 0);
+    
   };
 
   useEffect(() => {
@@ -95,6 +101,10 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
 
   return (
     <div className="piano-container">
+      {gameMode === "challenge" && <PianoChallenge />}
+      <div className = {`${selectedSong ? 'song-learner' : ''}`}>
+      {selectedSong && <SongLearner song={selectedSong} notePlayed = {notePlayed} />}
+      </div>
       <div className = "piano">
       {notes.map(({ key, type }) => (
         <div
@@ -112,12 +122,24 @@ const Piano = ({ onNotePlayed, setGameMode, gameMode }) => {
             value={gameMode}
             onChange={(e) => {
               setGameMode(e.target.value)
-              navigate("/SoundGame")}}
+              // navigate("/SoundGame")
+            }}
             className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
           >
             <option value="freeplay">Freeplay</option>
             <option value="challenge">Challenge</option>
           </select>
+      </div>
+        
+      <div className="absolute top-10 right-0 m-4">
+        <select
+        className = "bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
+        onChange = {(e) => setSelectedSong(e.target.value)}
+        >
+        <option value="">Learn a song</option>
+        <option value="mary">Mary had a little lamb</option>
+        <option value="twinkle">Twinkle Twinkle Little Star</option>
+        </select>
       </div>
     </div>
   );

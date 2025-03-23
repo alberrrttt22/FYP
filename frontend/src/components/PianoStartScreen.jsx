@@ -31,8 +31,10 @@ const PianoStartScreen = ({ setGameMode, setGameStarted }) => {
           </p>
           <p className="mt-4 text-md text-gray-700 leading-relaxed">
             🎹 <strong>How to Play:</strong>
-            <br /> - Freeplay Mode: Experiment and create beautiful melodies.
+            <br /> - Freeplay Mode: Experiment and create beautiful melodies and learn new songs.
             <br /> - Challenge Mode: Listen carefully and repeat the notes to reveal the treasure.
+            <br /> - White Keys: "a" to "f" and "j" to ";" 
+            <br /> - Black Keys: "w, e, t, i, o"
           </p>
         </div>
 

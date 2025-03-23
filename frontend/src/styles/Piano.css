@@ -1,3 +1,10 @@
+.piano-container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center everything */
+  width: 100%;
+}
+
 .piano {
     position: relative;
     display: flex;
@@ -35,7 +42,7 @@
     height: 110px;
     background: black;
     color: white;
-    top: 0;
+    top: 20px;
     left: 37px;
     z-index: 2;
     border-radius: 5px 5px 3px 3px;
@@ -46,11 +53,11 @@
 }
 
 /* Specific positioning for black keys */
-.piano-key:nth-child(2){left:35px;} /*C#6*/
-.piano-key:nth-child(4){left:85px;} /*D#6*/
-.piano-key:nth-child(7){left:185px;} /*F#6*/
-.piano-key:nth-child(9){left:235px;} /*G#6*/
-.piano-key:nth-child(11){left:285px;} /*A#6*/
+.piano-key:nth-child(2){left:55px;} /*C#6*/
+.piano-key:nth-child(4){left:105px;} /*D#6*/
+.piano-key:nth-child(7){left:210px;} /*F#6*/
+.piano-key:nth-child(9){left:265px;} /*G#6*/
+.piano-key:nth-child(11){left:315px;} /*A#6*/
 
 .piano-key:active {
     transform:scale(0.95);
@@ -84,3 +91,89 @@
   color: black; /* Set text color for good contrast */
   margin-bottom: 1rem; /* Add some space below */
 } 
+
+/*Song Learner */
+
+.song-learner {
+  text-align: center;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.song-learner h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.song-learner .notes-display {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.song-learner .note {
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #ddd;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.song-learner .note.current {
+  background: #ffcc00;
+  color: #000;
+  transform: scale(1.2);
+}
+
+.song-learner .note.completed {
+  background: #4caf50;
+  color: white;
+}
+
+.song-learner .success-message {
+  color: #28a745;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* Song Learner Restart Button */
+
+.song-learner .restart-button {
+  background: #e0e0e0;  /* Light grey background */
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+}
+
+.song-learner .restart-button:hover {
+  background: #d6d6d6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.song-learner .restart-button:active {
+  background: #bdbdbd;
+  transform: scale(0.98);
+}

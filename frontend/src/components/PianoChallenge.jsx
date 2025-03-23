@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Piano from "./Piano";
 
 const PianoChallenge = () => {
   const [level, setLevel] = useState(1);
@@ -68,7 +67,6 @@ const PianoChallenge = () => {
     <div className="piano-challenge-container">
       <h2>Challenge Mode - Level {level}</h2>
       <p className="message">{message}</p>
-      <Piano onNotePlayed={handleUserInput} />
     </div>
   );
 };

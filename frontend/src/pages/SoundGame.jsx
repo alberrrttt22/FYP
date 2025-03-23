@@ -20,7 +20,7 @@ const SoundGame = () => {
                 <PianoStartScreen setGameMode = {setGameMode} setGameStarted={setGameStarted} />
             ):(
                 <div>
-                {gameMode === "freeplay" ? <Piano setGameMode={setGameMode} gameMode = {gameMode} /> : <PianoChallengeMode setGameMode={setGameMode} gameMode = {gameMode}/>}
+                <Piano setGameMode={setGameMode} gameMode = {gameMode} /> 
                 <Link
                           to="/GameModes"
                           className="font-bold absolute top-1 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700"
