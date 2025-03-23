@@ -1,7 +1,7 @@
 .sg-container {
     position: relative;
     overflow: hidden;
-    background-image: url('/images/soundgamebg.jpg'); 
+    background-image: url('/images/soundgamebg.png'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
