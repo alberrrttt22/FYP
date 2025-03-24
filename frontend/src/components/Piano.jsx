@@ -133,12 +133,15 @@ const Piano = ({ setGameMode, gameMode }) => {
         
       <div className="absolute top-10 right-0 m-4">
         <select
-        className = "bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
+        className = "song-select bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
         onChange = {(e) => setSelectedSong(e.target.value)}
+        onKeyDown={() => {}}
         >
         <option value="">Learn a song</option>
+        <option value="happy">Happy Birthday</option>
         <option value="mary">Mary had a little lamb</option>
         <option value="twinkle">Twinkle Twinkle Little Star</option>
+        <option value="ode">Ode to Joy</option>
         </select>
       </div>
     </div>

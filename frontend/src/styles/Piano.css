@@ -116,6 +116,16 @@
   margin: 10px 0;
 }
 
+.song-learner .notes-display.completed {
+  /* opacity: 0.6;  */
+  transform: translateY(-10px); /* Slide up completed notes */
+}
+
+.song-learner .notes-display.current {
+  opacity: 1; /* Current notes are fully visible */
+  transform: translateY(10px); /* Slide in current notes */
+}
+
 .song-learner .note {
   padding: 10px;
   font-size: 1.2rem;
@@ -125,10 +135,19 @@
   transition: all 0.3s ease-in-out;
 }
 
-.song-learner .note.current {
+/* .song-learner .note.current {
   background: #ffcc00;
   color: #000;
   transform: scale(1.2);
+} */
+
+.song-learner .next-note {
+  background: #ffcc00; /* Highlight the next note */
+}
+
+.song-learner .rest-note {
+  background: #888; /* Grey for all notes except the next one */
+  color: #333;
 }
 
 .song-learner .note.completed {
@@ -146,16 +165,15 @@
 
 @keyframes fadeIn {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 /* Song Learner Restart Button */
-
-.song-learner .restart-button {
+.song-learner .restart-button, .song-learner .display-button {
   background: #e0e0e0;  /* Light grey background */
   border: none;
   padding: 5px 10px;
@@ -164,16 +182,17 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  margin-top: 10px;
+  margin: 10px 5px 5px 0px;
 }
 
-.song-learner .restart-button:hover {
+.song-learner .restart-button:hover, .display-button:hover {
   background: #d6d6d6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
 }
 
-.song-learner .restart-button:active {
+.song-learner .restart-button:active, .display-button:active {
   background: #bdbdbd;
   transform: scale(0.98);
 }
+
