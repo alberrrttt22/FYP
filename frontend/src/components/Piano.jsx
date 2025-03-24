@@ -98,6 +98,10 @@ const Piano = ({ setGameMode, gameMode }) => {
       document.removeEventListener("keyup", keyReleaseHandler);
     };
   }, [activeKeys]); // Make sure the effect runs only when `activeKeys` changes.
+  
+  useEffect(()=>{
+    setSelectedSong("");
+  }, [gameMode])
 
   return (
     <div className="piano-container">
@@ -131,6 +135,7 @@ const Piano = ({ setGameMode, gameMode }) => {
           </select>
       </div>
         
+      {gameMode === "freeplay" && 
       <div className="absolute top-10 right-0 m-4">
         <select
         className = "song-select bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
@@ -142,8 +147,10 @@ const Piano = ({ setGameMode, gameMode }) => {
         <option value="mary">Mary had a little lamb</option>
         <option value="twinkle">Twinkle Twinkle Little Star</option>
         <option value="ode">Ode to Joy</option>
+        <option value="jingle">Jingle Bells</option>
         </select>
       </div>
+      }
     </div>
   );
 };

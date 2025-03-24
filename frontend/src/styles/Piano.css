@@ -101,6 +101,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
 }
 
 .song-learner h2 {
@@ -119,12 +122,19 @@
 .song-learner .notes-display.completed {
   /* opacity: 0.6;  */
   transform: translateY(-10px); /* Slide up completed notes */
+  overflow-x: scroll;
+  /* white-space: nowrap; */
+  max-width: 100%;
+  margin-left:auto;
+  display: flex;
+  justify-content: start;
 }
 
 .song-learner .notes-display.current {
   opacity: 1; /* Current notes are fully visible */
   transform: translateY(10px); /* Slide in current notes */
 }
+
 
 .song-learner .note {
   padding: 10px;
@@ -134,6 +144,8 @@
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
 }
+
+
 
 /* .song-learner .note.current {
   background: #ffcc00;
@@ -159,7 +171,7 @@
   color: #28a745;
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 0px;
   animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -183,6 +195,9 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   margin: 10px 5px 5px 0px;
+  width: 180px;
+  height: 35px;
+  align-self: center;
 }
 
 .song-learner .restart-button:hover, .display-button:hover {

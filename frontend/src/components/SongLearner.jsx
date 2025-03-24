@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../styles/Piano.css'
 
 const songs = {
@@ -20,14 +20,22 @@ const songs = {
   happy: ["c4", "c4", "d4", "c4", "f4", "e4",    
     "c4", "c4", "d4", "c4", "g4", "f4",    
     "c4", "c4", "c5", "a4", "f4", "e4", "d4",    
-    "a#4", "a#4", "a4", "f4", "g4", "f4"]    
+    "a#4", "a#4", "a4", "f4", "g4", "f4"],
+  jingle: ["e4", "e4", "e4", "e4", "e4", "e4", "e4", "g4", "c4", "d4", "e4",
+    "f4", "f4", "f4", "f4", "f4", "e4", "e4", "e4", "e4",
+    "e4", "d4", "d4", "e4", "d4", "g4",
+    "e4", "e4", "e4", "e4", "e4", "e4", "e4", "g4", "c4", "d4", "e4",
+    "f4", "f4", "f4", "f4", "f4", "e4", "e4", "e4", "e4",
+    "g4", "g4", "f4", "d4", "c4"
+  ]
 };
 
 const songNames = {
     mary: "Mary Had a Little Lamb",
     twinkle: "Twinkle Twinkle Little Star",
     ode: "Ode to Joy",
-    happy: "Happy Birthday"
+    happy: "Happy Birthday",
+    jingle: "Jingle Bells"
   };
 
 const SongLearner = ({ song, notePlayed }) => {
@@ -35,6 +43,7 @@ const SongLearner = ({ song, notePlayed }) => {
   const [completedNotes, setCompletedNotes] = useState([]);
   const [display, setDisplay] = useState(false);
   const songNotes = songs[song];
+//   const notesDisplayRef = useRef(null);
 
   useEffect(() => {
     setCurrentIndex(0); // Reset progress when the song changes
@@ -48,10 +57,15 @@ const SongLearner = ({ song, notePlayed }) => {
     }
   }, [notePlayed]); // Runs every time notePlayed changes
 
+  useEffect(() => {
+    setDisplay(false);
+  }, [song])
+
   const getCurrentNotes = () => {
     const remainingNotes = songNotes.slice(currentIndex, currentIndex + 8); // Display next 8 notes
     return remainingNotes;
   };
+
 
   return (
     <div className="song-learner">
@@ -60,9 +74,10 @@ const SongLearner = ({ song, notePlayed }) => {
       {/* Display completed notes if user toggles */}
       {display && <div className="notes-display completed">
         {completedNotes.map((note, index) => (
-          <span key={index} className="note completed">{note}</span>
+          <div key={index} className="note completed">{note}</div>
         ))}
-      </div>}
+      </div>
+      }
 
       {/* Display current notes */}
       <div className="notes-display current">
