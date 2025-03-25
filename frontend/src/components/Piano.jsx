@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Piano.css";
 import PianoChallenge from "./PianoChallenge";
-import SongLearner from "./SongLearner";
+import SongModule from "./SongModule";
 
-const Piano = ({ setGameMode, gameMode }) => {
+const Piano = ({ setGameMode, gameMode}) => {
   const notes = [
     { key: "c4", type: "white", keyBinding: "a" },
     { key: "c#4", type: "black", keyBinding: "w" },
@@ -107,7 +107,7 @@ const Piano = ({ setGameMode, gameMode }) => {
     <div className="piano-container">
       {gameMode === "challenge" && <PianoChallenge />}
       <div className = {`${selectedSong ? 'song-learner' : ''}`}>
-      {selectedSong && <SongLearner song={selectedSong} notePlayed = {notePlayed} />}
+      {selectedSong && <SongModule song={selectedSong} notePlayed = {notePlayed} />}
       </div>
       <div className = "piano">
       {notes.map(({ key, type }) => (
@@ -126,7 +126,6 @@ const Piano = ({ setGameMode, gameMode }) => {
             value={gameMode}
             onChange={(e) => {
               setGameMode(e.target.value)
-              // navigate("/SoundGame")
             }}
             className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
           >

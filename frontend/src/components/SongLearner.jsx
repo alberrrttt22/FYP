@@ -1,48 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import '../styles/Piano.css'
+import songsData from '../assets/songsData.json'; 
 
-const songs = {
-  mary: ["e4", "d4", "c4", "d4", "e4", "e4", "e4", 
-    "d4", "d4", "d4", "e4", "g4", "g4",
-    "e4", "d4", "c4", "d4", "e4", "e4", "e4",
-    "e4", "d4", "d4", "e4", "d4", "c4"],
-  twinkle: ["c4", "c4", "g4", "g4", "a4", "a4", "g4", 
-    "f4", "f4", "e4", "e4", "d4", "d4", "c4",
-    "g4", "g4", "f4", "f4", "e4", "e4", "d4",
-    "g4", "g4", "f4", "f4", "e4", "e4", "d4",
-    "c4", "c4", "g4", "g4", "a4", "a4", "g4",
-    "f4", "f4", "e4", "e4", "d4", "d4", "c4",
-    ],
-  ode: ["f#4", "f#4", "g4", "a4", "a4", "g4", "f#4", "e4", 
-    "d4", "d4", "e4", "f#4", "f#4", "e4", "e4",
-    "f#4", "f#4", "g4", "a4", "a4", "g4", "f#4", "g4", "e4",
-    "d4", "d4", "e4", "f#4","e4", "d4", "d4"],
-  happy: ["c4", "c4", "d4", "c4", "f4", "e4",    
-    "c4", "c4", "d4", "c4", "g4", "f4",    
-    "c4", "c4", "c5", "a4", "f4", "e4", "d4",    
-    "a#4", "a#4", "a4", "f4", "g4", "f4"],
-  jingle: ["e4", "e4", "e4", "e4", "e4", "e4", "e4", "g4", "c4", "d4", "e4",
-    "f4", "f4", "f4", "f4", "f4", "e4", "e4", "e4", "e4",
-    "e4", "d4", "d4", "e4", "d4", "g4",
-    "e4", "e4", "e4", "e4", "e4", "e4", "e4", "g4", "c4", "d4", "e4",
-    "f4", "f4", "f4", "f4", "f4", "e4", "e4", "e4", "e4",
-    "g4", "g4", "f4", "d4", "c4"
-  ]
-};
-
-const songNames = {
-    mary: "Mary Had a Little Lamb",
-    twinkle: "Twinkle Twinkle Little Star",
-    ode: "Ode to Joy",
-    happy: "Happy Birthday",
-    jingle: "Jingle Bells"
-  };
-
-const SongLearner = ({ song, notePlayed }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIndex }) => {
   const [completedNotes, setCompletedNotes] = useState([]);
   const [display, setDisplay] = useState(false);
-  const songNotes = songs[song];
+  
+  const songNotes = songsData.songs[song];
+  const songNames = songsData.songNames[song];
 //   const notesDisplayRef = useRef(null);
 
   useEffect(() => {
@@ -69,7 +34,7 @@ const SongLearner = ({ song, notePlayed }) => {
 
   return (
     <div className="song-learner">
-      <h2>Learn: {songNames[song] || "Select a song"}</h2>
+      <h2>Learn: {songNames || "Select a song"}</h2>
       
       {/* Display completed notes if user toggles */}
       {display && <div className="notes-display completed">
@@ -98,6 +63,7 @@ const SongLearner = ({ song, notePlayed }) => {
           }
         </div>
       }
+    <button className="test-button" onClick={() => setTestMode(true)} >Test yourself</button>
     </div>
   );
 };

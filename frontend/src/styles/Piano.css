@@ -184,8 +184,8 @@
   }
 }
 
-/* Song Learner Restart Button */
-.song-learner .restart-button, .song-learner .display-button {
+/* Song Learner Buttons */
+.song-learner .restart-button, .song-learner .display-button, .test-button {
   background: #e0e0e0;  /* Light grey background */
   border: none;
   padding: 5px 10px;
@@ -200,14 +200,97 @@
   align-self: center;
 }
 
-.song-learner .restart-button:hover, .display-button:hover {
+.test-button{
+  background: rgb(36, 150, 51);
+}
+
+.song-learner .restart-button:hover, .display-button:hover, .test-button:hover{
   background: #d6d6d6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
 }
 
-.song-learner .restart-button:active, .display-button:active {
+.song-learner .restart-button:active, .display-button:active, .test-button:active{
   background: #bdbdbd;
   transform: scale(0.98);
 }
 
+.test-button:hover{
+background: rgb(36, 150, 51);
+}
+
+.test-button:active{
+  background: rgb(15, 87, 15);
+}
+
+
+/* SongTester */
+
+.song-tester button{
+  background: #e0e0e0;  /* Light grey background */
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 10px 5px 5px 0px;
+  width: 200px;
+  height: 40px;
+  align-self: center;
+}
+
+.song-tester button:hover{
+  background: #d6d6d6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.song-tester button:active{
+  background: #bdbdbd;
+  transform: scale(0.98);
+}
+
+.end-button{
+  background: rgb(170, 47, 47);
+}
+
+.end-button:hover{
+  background: rgb(170, 47, 47);
+}
+
+.end-button:active{
+  background:rgb(104, 7, 7);
+}
+
+.feedback-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+  border-radius: 15%;
+  background-color: rgb(192, 191, 191);
+  transition: transform 0.2s ease-in-out;
+}
+
+.correct {
+  background-color: green;
+  animation: scaleEffect 0.2s ease-in-out;
+}
+
+.wrong {
+  background-color: red;
+  animation: scaleEffect 0.2s ease-in-out;
+}
+
+@keyframes scaleEffect {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

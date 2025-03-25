@@ -15,7 +15,6 @@ const SoundGame = () => {
     return (
         <div className='sg-container flex flex-col items-center'>
             <h1 className="vg-header text-3xl font-bold mb-4">Sound Quest</h1>
-            
             {!gameStarted ? (
                 <PianoStartScreen setGameMode = {setGameMode} setGameStarted={setGameStarted} />
             ):(
