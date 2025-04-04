@@ -20,7 +20,7 @@ const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIn
       setCompletedNotes((prevNotes) => [...prevNotes, notePlayed]); // Add completed note to the list
       setCurrentIndex((prevIndex) => prevIndex + 1); // Move to the next note
     }
-  }, [notePlayed]); // Runs every time notePlayed changes
+  }, [notePlayed]); 
 
   useEffect(() => {
     setDisplay(false);

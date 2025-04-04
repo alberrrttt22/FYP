@@ -14,28 +14,28 @@ const GameModes = () => {
         <h1 className="game-mode-title">Choose your game mode</h1>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/soundmemory.jpg" alt="Sound Memory" onClick={() => handleGameMode('SoundGame')} />
+            <img className="game-logo" src="/images/sound-quest-logo.jpg" alt="Sound Memory" onClick={() => handleGameMode('SoundGame')} />
             <div className="game-description">
-              <h3>Sound Memory</h3>
+              <h3>Sound Quest</h3>
               <p>Train your memory by matching sounds. Sharpen your auditory skills!</p>
             </div>
           </div>
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/visualmemory.jpg" alt="Visual Memory" onClick={() => handleGameMode('VisualGame')} />
+            <img className="game-logo" src="/images/visual-quest-logo.jpg" alt="Visual Memory" onClick={() => handleGameMode('VisualGame')} />
             <div className="game-description">
-              <h3>Visual Memory</h3>
+              <h3>Visual Quest</h3>
               <p>Improve your visual recall with fun, photo-based memory challenges.</p>
             </div>
           </div>
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/flashcardmode1.jpg" alt="Flashcard Mode" onClick={() => handleGameMode('flashcard')} />
+            <img className="game-logo" src="/images/fusion-quest-logo.jpg" alt="Fusion Quest" onClick={() => handleGameMode('flashcard')} />
             <div className="game-description">
-              <h3>Flashcard Mode</h3>
-              <p>Enhance your memory with customizable flashcard games.</p>
+              <h3>Fusion Quest</h3>
+              <p>Enhance your memory</p>
             </div>
           </div>
         </div>
