@@ -23,6 +23,7 @@ const Piano = ({ setGameMode, gameMode}) => {
   const [activeKeys, setActiveKeys] = useState([]);
   const [selectedSong, setSelectedSong] = useState(null);
   const [notePlayed, setNotePlayed] = useState(null);
+  const [highlightEnabled, setHighlight] = useState(true);
   
   const noteSounds = useRef({});
 
@@ -68,7 +69,6 @@ const Piano = ({ setGameMode, gameMode}) => {
   const playNote = (note) => {
     const audio = noteSounds.current[note]; 
     if (audio) {
-      setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
       if (!audio.paused) {
         // If the same key is already playing, clone it to allow overlap
         const newAudio = audio.cloneNode();
@@ -78,13 +78,33 @@ const Piano = ({ setGameMode, gameMode}) => {
         audio.currentTime = 0;
         audio.play();
       }
+    }
+  };
+
+
+  const playNoteForCom = (note) => {
+    const audio = noteSounds.current[note]; 
+    if (audio) {
+      
+      if (!audio.paused) {
+        // If the same key is already playing, clone it to allow overlap
+        const newAudio = audio.cloneNode();
+        newAudio.play();
+      } else {
+        // Otherwise, just play normally
+        audio.currentTime = 0;
+        audio.play();
+      }
+      if (highlightEnabled){
+      setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
       setTimeout(() => {
         setActiveKeys((prevKeys) => prevKeys.filter((key) => key !== note));
       }, 200); 
     }
-  
-    
+    }
   };
+
+
 
   useEffect(() => {
     const keyPressHandler = (event) => {
@@ -108,11 +128,13 @@ const Piano = ({ setGameMode, gameMode}) => {
     setSelectedSong("");
   }, [gameMode])
 
+
   return (
     <div className="piano-container">
       {gameMode === "challenge" && <PianoChallenge key = {gameMode} //Ensures the component unmounts when gameMode changes instead of just being hidden
        notePlayed={notePlayed} 
-       playNote ={playNote}/>}
+       playNoteForCom ={playNoteForCom}
+       setHighlight = {setHighlight} />}
       <div className = {`${selectedSong ? 'song-learner' : ''}`}>
       {selectedSong && <SongModule song={selectedSong} notePlayed = {notePlayed} />}
       </div>

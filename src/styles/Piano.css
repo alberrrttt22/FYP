@@ -299,22 +299,34 @@ background: rgb(36, 150, 51);
 
 .challenge-box {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.challenge-box .start-button {
+.challenge-box .start-button-normal {
   background-color: #28a745;
 }
 
-.challenge-box .start-button:hover {
-  background-color: #27a845;
+.challenge-box .start-button-normal:hover {
+  background-color: #00791a;
 }
 
-.challenge-box .start-button:active {
+.challenge-box .start-button-normal:active {
   background-color: #0b4518;
 }
 
+.challenge-box .start-button-genius {
+  background-color: rgb(204, 204, 2);
+}
+
+.challenge-box .start-button-genius:hover {
+  background-color: rgb(136, 136, 1);
+}
+
+.challenge-box .start-button-genius:active {
+  background-color: rgb(136, 136, 1);
+}
 
 .piano-challenge button {
   background: #e0e0e0;  /* Light grey background */

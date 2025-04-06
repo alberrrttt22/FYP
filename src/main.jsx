@@ -4,7 +4,7 @@ import './index.css'
 import AppWrapper from './router/AppRouter.jsx'
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode>
+  <StrictMode>
     <AppWrapper />,
-  {/* </StrictMode>, */}
+  </StrictMode>, 
 )

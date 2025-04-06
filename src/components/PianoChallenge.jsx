@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Piano.css"
 
-const PianoChallenge = ({ notePlayed, playNote }) => {
+const PianoChallenge = ({ notePlayed, playNoteForCom, setHighlight }) => {
   const [level, setLevel] = useState(1); // Current level
   const [sequence, setSequence] = useState([]); // Sequence of notes
   const [checker, setChecker] = useState(0); 
@@ -31,6 +31,20 @@ const PianoChallenge = ({ notePlayed, playNote }) => {
     setIsComPlaying(false);
     setMessage("Listen and play the notes");
     setHasGameStarted(true);
+    setHighlight(true);
+  };
+
+  const startGameGenius = () => {
+    setIsGameOver(false);
+    setSequence([]);
+    setChecker(0);
+    // setLevel(null);
+    // setTimeout(()=> {setLevel(1), 0});
+    setLevel(1);
+    setIsComPlaying(false);
+    setMessage("Genius Mode: \nListen and play the notes");
+    setHasGameStarted(true);
+    setHighlight(false);
   };
 
 
@@ -40,7 +54,7 @@ const PianoChallenge = ({ notePlayed, playNote }) => {
    const playNextNote = () => {
      if (currentIndex < seq.length) {
        // Play the current note
-       playNote(seq[currentIndex]);
+       playNoteForCom(seq[currentIndex]);
 
        // Move to the next note after 500ms
        currentIndex++;
@@ -100,7 +114,6 @@ const PianoChallenge = ({ notePlayed, playNote }) => {
         if (checker === sequence.length - 1){
           setTimeout(() => {
             setLevel((prev) => prev + 1);
-            setMessage("Remember these notes")
           }, 1000); //Wait a bit before progressing to next level
         }
       }
@@ -128,22 +141,23 @@ const PianoChallenge = ({ notePlayed, playNote }) => {
 
   return (
     <div className="piano-challenge">
-      <div className={`challenge-box w-80 p-6 ${isGameOver ? "bg-gray-100" : "bg-white"} rounded-lg shadow-lg border ${isGameOver ? "border-gray-300" : "border-white"} mb-6`}>
+      <div className={`challenge-box w-100 p-6 ${isGameOver ? "bg-gray-100" : "bg-white"} rounded-lg shadow-lg border ${isGameOver ? "border-gray-300" : "border-white"} mb-6`}>
         {!gameStarted ? 
         (<div>
-          <button className="start-button" onClick = {() => startGame()}>Start Game</button>
+          <button className="start-button-normal" onClick = {() => startGame()}>Normal Mode</button>
+          <button className="start-button-genius" onClick = {() => startGameGenius()}>Genius Mode</button>
         </div>)
         : 
         (!isGameOver ? (
           <div className="text-2xl text-center">
             <div className="text-green-700">Level {level}</div>
-            <div>{message}</div>
+            <div style={{ whiteSpace: 'pre-line' }}>{message}</div>
           </div>
         ) : (
           <div className="text-2xl text-center">
             <div className="text-red-600">Game Over!</div>
             <div >You reached Level {level}</div>
-            <button onClick={() => startGame()}>Try again?</button>
+            <button onClick={() => setHasGameStarted(false)}>Try again?</button>
           </div>
         ))
         }
