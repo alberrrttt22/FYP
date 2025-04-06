@@ -294,3 +294,50 @@ background: rgb(36, 150, 51);
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+
+/* PianoChallengeMode */
+
+.challenge-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.challenge-box .start-button {
+  background-color: #28a745;
+}
+
+.challenge-box .start-button:hover {
+  background-color: #27a845;
+}
+
+.challenge-box .start-button:active {
+  background-color: #0b4518;
+}
+
+
+.piano-challenge button {
+  background: #e0e0e0;  /* Light grey background */
+  border: none;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin: 10px 5px 5px 0px;
+  width: 180px;
+  height: 40px;
+  align-self: center;
+}
+
+.piano-challenge button:hover{
+  background: #d6d6d6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.piano-challenge button:active{
+  background: #bdbdbd;
+  transform: scale(0.98);
+}

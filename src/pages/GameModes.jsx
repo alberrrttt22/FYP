@@ -23,7 +23,7 @@ const GameModes = () => {
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/visual-quest-logo.jpg" alt="Visual Memory" onClick={() => handleGameMode('VisualGame')} />
+            <img className="game-logo" src="/images/visual-quest-logo1.jpg" alt="Visual Memory" onClick={() => handleGameMode('VisualGame')} />
             <div className="game-description">
               <h3>Visual Quest</h3>
               <p>Improve your visual recall with fun, photo-based memory challenges.</p>

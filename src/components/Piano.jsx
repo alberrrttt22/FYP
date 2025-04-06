@@ -26,6 +26,7 @@ const Piano = ({ setGameMode, gameMode}) => {
   
   const noteSounds = useRef({});
 
+
   useEffect(() => {
     // Initialize audio files once
     noteSounds.current = notes.reduce((acc, note) => {
@@ -50,6 +51,9 @@ const Piano = ({ setGameMode, gameMode}) => {
     const note = notes.find((n) => n.keyBinding === pressedKey)?.key;
     if (note && !activeKeys.includes(note)) {
       playNote(note);
+      setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
+      setNotePlayed(null);
+      setTimeout(() => setNotePlayed(note), 0);
     }
   };
 
@@ -64,6 +68,7 @@ const Piano = ({ setGameMode, gameMode}) => {
   const playNote = (note) => {
     const audio = noteSounds.current[note]; 
     if (audio) {
+      setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
       if (!audio.paused) {
         // If the same key is already playing, clone it to allow overlap
         const newAudio = audio.cloneNode();
@@ -73,11 +78,11 @@ const Piano = ({ setGameMode, gameMode}) => {
         audio.currentTime = 0;
         audio.play();
       }
+      setTimeout(() => {
+        setActiveKeys((prevKeys) => prevKeys.filter((key) => key !== note));
+      }, 200); 
     }
   
-    setActiveKeys((prevKeys) => [...new Set([...prevKeys, note])]);
-    setNotePlayed(null);
-    setTimeout(() => setNotePlayed(note), 0);
     
   };
 
@@ -105,7 +110,9 @@ const Piano = ({ setGameMode, gameMode}) => {
 
   return (
     <div className="piano-container">
-      {gameMode === "challenge" && <PianoChallenge />}
+      {gameMode === "challenge" && <PianoChallenge key = {gameMode} //Ensures the component unmounts when gameMode changes instead of just being hidden
+       notePlayed={notePlayed} 
+       playNote ={playNote}/>}
       <div className = {`${selectedSong ? 'song-learner' : ''}`}>
       {selectedSong && <SongModule song={selectedSong} notePlayed = {notePlayed} />}
       </div>
@@ -114,7 +121,12 @@ const Piano = ({ setGameMode, gameMode}) => {
         <div
           key={key}
           className={`piano-key ${type} ${activeKeys.includes(key) ? "active" : ""}`}
-          onMouseDown={() => playNote(key)}
+          onMouseDown={() => {
+            playNote(key)
+            setActiveKeys((prevKeys) => [...new Set([...prevKeys, key])]);
+            setNotePlayed(null);
+            setTimeout(() => setNotePlayed(key), 0);
+          } }
           onMouseUp={() => setActiveKeys((prevKeys) => prevKeys.filter((k) => k !== key))}
         >
           {key}
