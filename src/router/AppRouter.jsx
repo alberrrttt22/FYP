@@ -6,6 +6,7 @@ import GameModes from '../pages/GameModes.jsx';
 import BackgroundAudio from '../components/BackgroundAudio.jsx';
 import VisualGame from '../pages/VisualGame.jsx';
 import SoundGame from '../pages/SoundGame.jsx';
+import FusionGame from '../pages/FusionGame.jsx';
 
 const AppRouter = () => {
 
@@ -14,7 +15,7 @@ const AppRouter = () => {
 
   useEffect(() => {
     // Update the audio source based on the current location
-    if (location.pathname === '/VisualGame' || location.pathname === '/SoundGame' ) {
+    if (location.pathname === '/VisualGame' || location.pathname === '/SoundGame' || location.pathname === '/FusionGame' ) {
       setAudioSrc('/sounds/oceansofserenityupbeat.mp3'); 
     } else {
       setAudioSrc('/sounds/oceansofserenity.mp3'); // Default audio 
@@ -29,6 +30,7 @@ const AppRouter = () => {
       <Route path="/GameModes" element={<GameModes />} />
       <Route path="/VisualGame" element={<VisualGame />} />
       <Route path="/SoundGame" element={<SoundGame />} />
+      <Route path="/FusionGame" element={<FusionGame />} />
     </Routes>
     </div>
   );

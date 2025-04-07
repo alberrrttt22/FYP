@@ -32,7 +32,7 @@ const GameModes = () => {
         </div>
         <div className="game-mode-selection">
           <div className="game-mode-item">
-            <img className="game-logo" src="/images/fusion-quest-logo.jpg" alt="Fusion Quest" onClick={() => handleGameMode('flashcard')} />
+            <img className="game-logo" src="/images/fusion-quest-logo.jpg" alt="Fusion Quest" onClick={() => handleGameMode('FusionGame')} />
             <div className="game-description">
               <h3>Fusion Quest</h3>
               <p>Enhance your memory</p>

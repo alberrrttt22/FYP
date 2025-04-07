@@ -1,7 +1,7 @@
-.sg-container {
+.fg-container {
     position: fixed;
     overflow: hidden;
-    background-image: url('/images/soundgamebg.png'); 
+    background-image: url('/images/fusiongamebg.jpg'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
@@ -11,4 +11,4 @@
     justify-content: center; 
     align-items: center; 
     margin: 0; 
-  }
+}
