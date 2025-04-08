@@ -15,7 +15,8 @@ const DualNBackGame = ({ n }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [reps, setReps] = useState(0);
   const [shakeIncorrect, setShakeIncorrect] = useState(false);
-  const totalReps = 30;
+  const totalReps = 20;
+  const intervalRef = useRef(null)
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -34,7 +35,6 @@ const DualNBackGame = ({ n }) => {
 
 
   useEffect(() => {
-    let interval;
     let timeout;
 
     const runCycle = () => {
@@ -77,14 +77,17 @@ const DualNBackGame = ({ n }) => {
         };
 
     runCycle(); // start first round
-    if (reps < totalReps){
-        interval = setInterval(runCycle, 2000); // cycle every 2s
-    }
+    intervalRef.current = setInterval(runCycle, 2000); 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
       clearTimeout(timeout);
     };
   }, []);
+
+  useEffect(() =>
+    {if (reps >= totalReps){
+        clearInterval(intervalRef.current);
+    }}, [reps]);
 
   const handleResponse = (type) => {
     if (!currentStimulus || responseGiven[type] || !isVisible) return;

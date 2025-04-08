@@ -6,5 +6,5 @@ import AppWrapper from './router/AppRouter.jsx'
 createRoot(document.getElementById('root')).render(
   // <StrictMode>
     <AppWrapper />,
-  {/* </StrictMode>,  */}
+  // </StrictMode>,  
 )
