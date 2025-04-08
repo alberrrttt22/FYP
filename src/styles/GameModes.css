@@ -8,7 +8,7 @@ body, html, #root {
 
 .container {
     overflow: hidden;
-    position: relative;
+    position: fixed;
     background-image: url('/images/underwater.jpg'); 
     background-size: cover; 
     background-position: center; 

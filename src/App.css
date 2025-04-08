@@ -34,7 +34,7 @@ body, html, #root {
 
 .app-container {
   flex-direction: column;
-  position: relative;
+  position: fixed;
   overflow: hidden;
   background-image: url('/images/background.jpg'); 
   background-size: cover; 

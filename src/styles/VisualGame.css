@@ -1,5 +1,5 @@
 .vg-container {
-    position: relative;
+    position: fixed;
     overflow: hidden;
     background-image: url('/images/visualgamebg.jpg'); 
     background-size: cover; 
