@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import StartScreen from'./StartScreen';
+import StartScreen from'./VisualStartScreen';
 
 const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty, gameStarted, setGameStarted }) => {
   const [cards, setCards] = useState([]);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/Piano.css"
+import "../../styles/Piano.css"
 
 const PianoChallenge = ({ notePlayed, playNoteForCom, setHighlight }) => {
   const [level, setLevel] = useState(1); // Current level

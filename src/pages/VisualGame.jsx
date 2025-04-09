@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import GameGrid from '../components/GameGrid';
+import VisualGameGrid from '../components/VisualQuest/VisualGameGrid';
 import '../styles/VisualGame.css';
-import Timer from '../components/Timer'
-import StartScreen from '../components/StartScreen';
+import Timer from '../components/VisualQuest/Timer'
+import StartScreen from '../components/VisualQuest/VisualStartScreen';
 import { Link } from 'react-router-dom';
 
 const VisualGame = () => {
@@ -30,7 +30,7 @@ const VisualGame = () => {
             gameStarted={gameStarted}
           />
 
-          <GameGrid
+          <VisualGameGrid
             timeLeft={timeLeft}
             setTimeLeft={setTimeLeft}
             gameOver={gameOver}

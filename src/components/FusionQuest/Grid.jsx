@@ -15,7 +15,7 @@ const Grid = ({ position, icon, isVisible }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-4 bg-blue-100 rounded-md shadow-lg">
+    <div className="grid grid-cols-3 gap-2 p-4 bg-gray-300 rounded-md shadow-lg">
       {[...Array(9)].map((_, index) => renderCell(index))}
     </div>
   );

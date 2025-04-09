@@ -13,7 +13,7 @@
     margin: 0; 
 }
 
-/* Score Display */
+/* Score Display Animation*/
 
 @keyframes shake {
     0% { transform: translateX(0); }
@@ -26,3 +26,31 @@
 .animate-shake {
     animation: shake 0.5s ease;
 }
+
+/* Dual N Back */
+
+.dnb-container .start-button {
+    background: green;  /* Light grey background */
+    border: none;
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin: 10px 5px 5px 0px;
+    width: 180px;
+    height: 40px;
+    align-self: center;
+  }
+  
+ .dnb-container .start-button:hover{
+    background: rgb(1, 109, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+  }
+  
+.dnb-container .start-button:active {
+    background: rgb(1, 109, 1);
+    transform: scale(0.98);
+  }

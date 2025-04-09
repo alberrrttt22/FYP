@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import '../styles/SoundGame.css';
-import Piano from '../components/Piano.jsx';
-import PianoStartScreen from '../components/PianoStartScreen.jsx';
+import Piano from '../components/SoundQuest/Piano.jsx';
+import PianoStartScreen from '../components/SoundQuest/PianoStartScreen.jsx';
 
 const SoundGame = () => {
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/Piano.css";
+import "../../styles/Piano.css";
 import PianoChallenge from "./PianoChallenge";
 import SongModule from "./SongModule";
 

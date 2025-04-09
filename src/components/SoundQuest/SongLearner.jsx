@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import '../styles/Piano.css'
-import songsData from '../assets/songsData.json'; 
+import '../../styles/Piano.css'
+import songsData from '../../assets/songsData.json'; 
 
 const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIndex }) => {
   const [completedNotes, setCompletedNotes] = useState([]);

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import '../styles/Piano.css'
-import songData from '../assets/songsData.json'
+import '../../styles/Piano.css'
+import songData from '../../assets/songsData.json'
 
 
 const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentIndex}) => {

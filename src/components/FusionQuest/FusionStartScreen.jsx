@@ -33,8 +33,8 @@ const FusionStartScreen = ({ setGameStarted, setNBack }) => {
             🐠 <strong>How to Play:</strong>
             <br /> - Watch the sea creature appear in a bubble.
             <br /> - Listen for the ocean sound (like a whale call or splash).
-            <br /> - If the <b>position</b> is the same as N turns ago, click the <b>🐚 Position Button</b>.
-            <br /> - If the <b>sound</b> is the same as N turns ago, click the <b>🎵 Sound Button</b>.
+            <br /> - If the <b>position</b> is the same as N turns ago, press A or click the <b>🐚 Position Button</b>.
+            <br /> - If the <b>sound</b> is the same as N turns ago, press L or click the <b>🎵 Sound Button</b>.
             <br /> - You can click both if both match!
             <br /> - Start with 1-Back and grow your memory to become a Deep Sea Master.
           </p>
