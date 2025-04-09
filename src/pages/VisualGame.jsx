@@ -22,7 +22,30 @@ const VisualGame = () => {
           setGameStarted={setGameStarted} 
           setIsMultiplayer={setIsMultiplayer}
         />
-      ) : (
+      ) : isMultiplayer ? (
+        <div>
+          
+          <VQMultiplayer 
+            gameOver={gameOver}
+            setGameOver={setGameOver}
+            gameStarted={gameStarted}
+            setGameStarted={setGameStarted}
+          />
+
+          <Link
+            to="/GameModes"
+            className="font-bold absolute top-1 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700"
+          >
+            ⬅ Back to Game Modes
+          </Link>
+          <button 
+            className="font-bold absolute top-12 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700" 
+            onClick ={()=> setGameStarted(false)}
+          >
+            Instructions / Local Multiplayer
+          </button>
+        </div>
+      ):(
         <>
           <Timer
             timeLeft={timeLeft}
@@ -48,7 +71,13 @@ const VisualGame = () => {
         >
           ⬅ Back to Game Modes
         </Link>
-        <button className="font-bold absolute top-12 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700" onClick ={()=> setGameStarted(false)}>Instructions</button>
+        <button 
+          className="font-bold absolute top-12 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700" 
+          onClick ={()=> setGameStarted(false)}
+        >
+            Instructions / Local Multiplayer
+        
+        </button>
         </>
       )}
     </div>

@@ -10,6 +10,11 @@ const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer }) => {
     setGameStarted(true);
   };
 
+  const startMultiplayer = () =>{
+    setIsMultiplayer(true);
+    setShowStartScreen(false);
+    setGameStarted(true);
+  }
 
   return showStartScreen ? (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
@@ -36,6 +41,14 @@ const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer }) => {
             <br /> - Click on two cards to flip them.
             <br /> - Match all pairs before time runs out!
             <br /> - Different modes offer increasing challenges.
+
+            <br />
+            <br />
+            🔥 Local Multiplayer Mode:
+            <br /> - Play with a friend! 
+            <br /> - Choose from 3 grid sizes: small, medium or large.
+            <br /> - Take turns, if you flip 2 matching cards, you get to flip again.
+            <br /> - Highest score after all cards are flipped wins.
           </p>
         </div>
 
@@ -58,7 +71,7 @@ const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer }) => {
           <div className="flex justify-center mt-5">
 
           <button
-            onClick={() => setIsMultiplayer(true)}
+            onClick={() => startMultiplayer()}
             className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600"
           >
             Local Multiplayer Mode

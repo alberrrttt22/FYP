@@ -152,7 +152,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
     <div>
       <div className = "text-center">
       
-      <p className="vg-header">Points: {points}</p>
+      <p className="vg-header mb-5 text-2xl">Points: {points}</p>
       </div>
       <button
         onClick={() => resetGame(difficulty)}

@@ -1,27 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { visualQuestImages } from './VisualQuestAssets';
+import '../../styles/VQMultiplayer.css'
 
 
 const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
+
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
+
   const [currentTurn, setCurrentTurn] = useState(1);
 
+  const [gridSize, setGridSize] = useState(2);
 
-  const getRandomImages = (gridAmt) => {
+
+  const resetGame = (gridSize) => {
+    const selectedImages = getRandomImages(gridSize);
+    const shuffledCards = [...selectedImages, ...selectedImages]
+      .sort(() => Math.random() - 0.5)
+      .map((img, index) => ({ id: index, img, flipped: false }));
+  
+    setCards(shuffledCards);
+    setMatchedCards([]);
+    setFlippedCards([]);
+    setGameOver(false);
+    setCurrentTurn(1);
+    setPlayer1Score(0);
+    setPlayer2Score(0);
+    setGridSize(gridSize);
+  };
+
+  const getRandomImages = (size) => {
     const imagesCopy = [...visualQuestImages];
-    const gridAmt = {
+    const gridImages = {
       1: 15,
-      2: 19,
+      2: 18,
       3: 21
     };
     
-    const count = levelImageCount[gridAmt];
+    const count = gridImages[size];
   
     const selected = [];
   
@@ -30,13 +52,12 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
       selected.push(imagesCopy[randIndex]);
       imagesCopy.splice(randIndex, 1); // Ensure no duplicates
     }
-  
     return selected;
   };
   
   
   useEffect(() => {
-    const selectedImages = getRandomImages(2);
+    const selectedImages = getRandomImages(gridSize);
     const shuffledCards = [...selectedImages, ...selectedImages]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
@@ -51,10 +72,10 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
 
   useEffect(() => {
-    if (timeLeft <= 0 || (matchedCards.length === cards.length && matchedCards.length !== 0)) {
+    if (matchedCards.length === cards.length && matchedCards.length !== 0) {
       setGameOver(true);
     }
-  }, [timeLeft, matchedCards, cards]);
+  },  [matchedCards, cards]);
 
   const triggerConfetti = () => {
     confetti({
@@ -87,6 +108,16 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
             showFloatingPoint(second);
         }
       }
+      else{
+        setTimeout( () => {
+            if (currentTurn === 1){
+                setCurrentTurn(2);
+            }
+            else if (currentTurn === 2){
+                setCurrentTurn(1);
+            }
+        }, 350);
+      }
       setTimeout(() => setFlippedCards([]), 350);
     }
   };
@@ -111,21 +142,6 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
       });
       setTimeout(() => setFloatingPoint({ visible: false, position: { x: 0, y: 0 } }), 1000);
     }
-  };
-
-  const resetGame = (level) => {
-    const selectedImages = getRandomImages(2);
-    const shuffledCards = [...selectedImages, ...selectedImages]
-      .sort(() => Math.random() - 0.5)
-      .map((img, index) => ({ id: index, img, flipped: false }));
-  
-    setCards(shuffledCards);
-    setMatchedCards([]);
-    setFlippedCards([]);
-    setGameOver(false);
-    setTimeLeft(60);
-    setPoints(0);
-    setDifficulty(level);
   };
   
 
@@ -160,16 +176,39 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
     </div>
   ) : (
     <div>
-      <div className = "text-center">
+        <div className = "text-center">
       
-      <p className="vg-header">Points: {points}</p>
-      </div>
+            <p className=" text-2xl player1Score ">
+                Player 1 Points: {player1Score}
+            </p>
+
+            <p className=" text-2xl mb-5 player2Score">
+                Player 2 Points: {player2Score}
+            </p>
+
+            <p className= {`text-4xl mb-5 ${(currentTurn === 1) ? 'p1turn' : 'p2turn'}`}>
+                Player {currentTurn}'s Turn
+            </p>
+
+        </div>
+
       <button
         onClick={() => resetGame()}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
       >
         Restart Game
       </button>
+      <div className="absolute top-11 right-0 m-4">
+          <select
+            value={gridSize}
+            onChange={(e) => resetGame(parseInt(e.target.value))}
+            className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600"
+          >
+            <option value="1">Small Grid</option>
+            <option value="2">Medium Grid</option>
+            <option value="3">Large Grid</option>
+          </select>
+      </div>
       <div
   className={`grid gap-4`}
   style={{

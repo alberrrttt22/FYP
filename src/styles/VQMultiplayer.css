@@ -1,0 +1,17 @@
+.player1Score{
+    color: rgb(209, 1, 29);
+}
+
+.player2Score{
+    color: rgb(0, 173, 226);
+}
+
+.p1turn{
+    color: black;
+    background-color: rgb(194, 0, 26);
+}
+
+.p2turn {
+    color: black;
+    background-color: rgb(0, 173, 226);
+}
