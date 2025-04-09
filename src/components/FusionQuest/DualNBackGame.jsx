@@ -9,37 +9,117 @@ import '../../styles/FusionGame.css'
 const DualNBackGame = ({ n }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [stimuliHistory, setStimuliHistory] = useState([]);
-  const stimuliHistoryRef = useRef([]);
+  const stimuliHistoryRef = useRef([]); //Ref
 
   const [currentStimulus, setCurrentStimulus] = useState(null);
-  const currentStimulusRef = useRef(null);
+  const currentStimulusRef = useRef(null); //Ref
 
   const [score, setScore] = useState({ correct: 0, incorrect: 0 });
 
   const [responseGiven, setResponseGiven] = useState({ visual: false, audio: false });
-  const responseGivenRef = useRef({visual : false, audio: false});
+  const responseGivenRef = useRef({visual : false, audio: false}); //Ref
 
   const [isVisible, setIsVisible] = useState(true);
   const [reps, setReps] = useState(0);
   const [shakeIncorrect, setShakeIncorrect] = useState(false);
-  const totalReps = 20;
-  const intervalRef = useRef(null)
-  
+  const totalReps = 25;
+  const intervalRef = useRef(null) //Ref
+  const [gameOver, setGameOver] = useState(false);
 
   const restartGame = () => {
     setGameStarted(false);
     setStimuliHistory([]);
+    stimuliHistoryRef.current = []
     setCurrentStimulus(null);
+    currentStimulusRef.current = null;
     setScore({correct: 0, incorrect: 0});
     setResponseGiven({visual: false, audio: false});
+    responseGivenRef.current = {visual : false, audio : false};
     setIsVisible(true);
     setReps(0);
     setShakeIncorrect(false);
+    setGameOver(false);
   };
 
+  // Same as restartGame() but GameStarted is set to true and runs the first cycle
   const startGame = () => {
     setGameStarted(true);
+    setStimuliHistory([]);
+    stimuliHistoryRef.current = []
+    setCurrentStimulus(null);
+    currentStimulusRef.current = null;
+    setScore({correct: 0, incorrect: 0});
+    setResponseGiven({visual: false, audio: false});
+    responseGivenRef.current = {visual : false, audio : false};
+    setIsVisible(true);
+    setReps(0);
+    setShakeIncorrect(false);
+    setGameOver(false);
   }
+
+  const runCycle = () => {
+    // Generate next stimulus
+    const newStimulus = generateRandomStimulus();
+    setCurrentStimulus(newStimulus);
+    currentStimulusRef.current = newStimulus;
+    stimuliHistoryRef.current = [...stimuliHistoryRef.current, newStimulus];
+    setStimuliHistory(stimuliHistoryRef.current);
+
+    setIsVisible(true);
+    setResponseGiven({ visual: false, audio: false });
+    responseGivenRef.current = { visual: false, audio: false };
+    setReps((prev) => prev + 1);
+    
+
+    // Check for missed match (user didn't respond in time)
+    if (currentStimulusRef.current && stimuliHistoryRef.current.length > n) {
+        setTimeout(() => {
+        const result = isMatchNBack(currentStimulusRef.current, stimuliHistoryRef.current, n);
+  
+        let missedCount = 0;
+        if (result.visual && !responseGivenRef.current.visual) missedCount += 1;
+        if (result.audio && !responseGivenRef.current.audio) missedCount += 1;
+        
+        if (missedCount > 0) {
+          console.log("missed count")
+          setScore((prev) => ({
+            ...prev,
+            incorrect: prev.incorrect + missedCount,
+          }));
+          setShakeIncorrect(true); 
+          setTimeout(() => setShakeIncorrect(false), 500); 
+        }
+      }, 1900);
+    }
+    // Hide the stimulus after a timeout
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 1000);
+  };
+
+
+
+   // Setup the interval to run the cycle every 2 seconds
+   useEffect(() => {
+    if (gameStarted){
+      runCycle();
+      intervalRef.current = setInterval(runCycle, 2000); // 2 seconds per cycle
+    }
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [gameStarted]); 
+
+  
+  // Logic to show the summary screen after the game
+  useEffect(() =>
+    {if (reps >= totalReps){
+        clearInterval(intervalRef.current);
+        const gameOverTimeout = setTimeout(() => {setGameOver(true)}, 2000);
+        return () => { clearTimeout(gameOverTimeout); }
+    }}, [reps]);
+
+    
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -54,63 +134,8 @@ const DualNBackGame = ({ n }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentStimulus, responseGiven, isVisible, stimuliHistory]);
+  }, [currentStimulus, responseGiven, stimuliHistory]);
 
-
- 
-  // Setup the interval to run the cycle every 2 seconds
-  useEffect(() => {
-    const runCycle = () => {
-        // Generate next stimulus
-        const newStimulus = generateRandomStimulus();
-        setCurrentStimulus(newStimulus);
-        currentStimulusRef.current = newStimulus;
-        stimuliHistoryRef.current = [...stimuliHistoryRef.current, newStimulus];
-        setStimuliHistory(stimuliHistoryRef.current);
-
-        setIsVisible(true);
-        setResponseGiven({ visual: false, audio: false });
-        responseGivenRef.current = { visual: false, audio: false };
-        setReps((prev) => prev + 1);
-        console.log("stimuli history: ",stimuliHistoryRef.current)
-    
-        // Check for missed match (user didn't respond in time)
-        if (currentStimulusRef.current && stimuliHistoryRef.current.length >= n) {
-            const result = isMatchNBack(currentStimulusRef.current, stimuliHistoryRef.current, n);
-      
-            let missedCount = 0;
-            if (result.visual && !responseGivenRef.current.visual) missedCount += 1;
-            if (result.audio && !responseGivenRef.current.audio) missedCount += 1;
-            
-            if (missedCount > 0) {
-              console.log("missed count")
-              setScore((prev) => ({
-                ...prev,
-                incorrect: prev.incorrect + missedCount,
-              }));
-              setShakeIncorrect(true); 
-              setTimeout(() => setShakeIncorrect(false), 500); 
-            }
-          }
-        // Hide the stimulus after a timeout
-        setTimeout(() => {
-          setIsVisible(false);
-        }, 1000);
-      };
-    
-    if (gameStarted){
-    intervalRef.current = setInterval(runCycle, 2000); // 2 seconds per cycle
-    }
-    // Cleanup the interval on unmount or when reps exceed totalReps
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, [gameStarted]); // This useEffect runs only once on mount
-
-  useEffect(() =>
-    {if (reps >= totalReps){
-        clearInterval(intervalRef.current);
-    }}, [reps]);
 
   const handleResponse = (type) => {
     if (!currentStimulus || responseGiven[type] || !isVisible) return;
@@ -133,7 +158,8 @@ const DualNBackGame = ({ n }) => {
     };
 
   return (
-    <div className="dnb-container flex flex-col items-center gap-4 mt-6">
+    !gameOver ? 
+      (<div className="dnb-container flex flex-col items-center gap-4 mt-6">
       <h1 className="text-3xl font-bold ">Fusion Quest ({n}-Back)</h1>
       {!gameStarted ? 
       (<button className="start-button" onClick = {() => startGame()}>Start Game</button>)
@@ -164,6 +190,7 @@ const DualNBackGame = ({ n }) => {
 
       <RepDisplay reps = {reps} totalReps = {totalReps}/>
       <ScoreDisplay score={score} shake = {shakeIncorrect} />
+      
       <button
         onClick={() => restartGame()}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
@@ -172,9 +199,14 @@ const DualNBackGame = ({ n }) => {
       </button>
       </div>
     )}
-      
-    </div>
-  );
+    </div>) : 
+    (<div className='summary'>
+      <h1 className= "text-2xl">Your Score:</h1>
+      <div className="text-2xl">{(((score.correct)/(score.correct + score.incorrect)) * 100).toFixed(1)}%</div>
+      <ScoreDisplay score={score} shake = {shakeIncorrect} />
+      <button className = "start-button" onClick ={() => restartGame()}>Play Again?</button>
+    </div>)
+    )
 };
 
 export default DualNBackGame;
