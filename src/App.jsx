@@ -15,9 +15,9 @@ const App = () => {
 
   return (
     <div className='app-container' >
-      <img className='title-logo' src="/images/title-logo.png"></img>
+      {/* <img className='title-logo' src="/images/title-logo.png"></img> */}
       <br></br>
-      <div className="play-button" onClick={handlePlayButtonClick}>
+      <div className="play-button mt-40" onClick={handlePlayButtonClick}>
         <img 
           src="/images/start-button.png" 
           alt="Play Button" 

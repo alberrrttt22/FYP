@@ -40,7 +40,8 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
     const gridImages = {
       1: 15,
       2: 18,
-      3: 21
+      3: 21,
+      4: 2
     };
     
     const count = gridImages[size];
@@ -147,31 +148,45 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
   return gameOver ? (
     <div className="vg-header text-center">
-      <p>Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
+      <div className = "player1Score text-2xl"> Player 1 Score: {player1Score} </div>
+      <br />
+      <div className = "player2Score text-2xl"> Player 2 Score: {player2Score} </div>
       <br></br>
+      {(player1Score > player2Score) ? 
+        (
+            <div className="p1turn text-3xl">
+                Player 1 Wins!
+            </div>
+        ) : (
+            <div className="p2turn text-3xl">
+                Player 2 Wins!
+            </div>
+        )}
+      <br />
       <h2 className="text-white text-2xl font-bold">
-        {matchedCards.length === cards.length ? 'You Win! Play again?' : 'Game Over! Play again?'}
+        Play again?
       </h2>
       <br></br>
       <div className="flex flex-row justify-center items-center gap-4">
             <button
               onClick={() => resetGame(1)}
-              className="bg-green-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-green-500 text-white p-3 rounded hover:bg-green-600 mb-4 w-50 h-50 "
             >
-              Easy
+              Small Grid
             </button>
             <button
               onClick={() => resetGame(2)}
-              className="bg-yellow-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-yellow-500 text-white p-3 rounded hover:bg-yellow-600 mb-4 w-50 h-50"
             >
-              Medium
+              Medium Grid
             </button>
             <button
               onClick={() => resetGame(3)}
-              className="bg-red-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
+              className="bg-red-500 text-white p-3 rounded hover:bg-red-600 mb-4 w-50 h-50"
             >
-              Hard
+              Large Grid
             </button>
+
           </div>
     </div>
   ) : (
