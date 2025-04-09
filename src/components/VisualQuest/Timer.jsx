@@ -1,6 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 
-const Timer = ({ timeLeft, setTimeLeft, totalTime, gameOver, gameStarted }) => {
+const Timer = ({ difficulty, setTimeLeft, timeLeft, gameOver, gameStarted }) => {
+  
+  const [totalTime, setTotalTime] = useState(30);
+
+  useEffect(() => {
+    if (difficulty === 1){
+      setTimeLeft(30);
+      setTotalTime(30);
+    } else if (difficulty === 2){
+      setTimeLeft(40);
+      setTotalTime(40);
+    } else {
+      setTimeLeft(50);
+      setTotalTime(50);
+    }
+  }, [difficulty, setTimeLeft]);
+  
+  
   useEffect(() => {
     if (gameStarted && timeLeft > 0 && !gameOver) {
       const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);

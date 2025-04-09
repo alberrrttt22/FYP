@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
 
-const StartScreen = ({ setDifficulty, setGameStarted }) => {
+const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer }) => {
   const [showStartScreen, setShowStartScreen] = useState(true);
 
   const startGame = (difficulty) => {
@@ -40,7 +40,9 @@ const StartScreen = ({ setDifficulty, setGameStarted }) => {
         </div>
 
         {/* Buttons to Start Game */}
-        <div className="flex justify-center gap-4 mt-4">
+        <div >
+          <div className="flex justify-center gap-4 mt-4">
+
           <button onClick={() => startGame(1)} className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600">
             Easy
           </button>
@@ -50,6 +52,20 @@ const StartScreen = ({ setDifficulty, setGameStarted }) => {
           <button onClick={() => startGame(3)} className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600">
             Hard
           </button>
+
+          </div>
+
+          <div className="flex justify-center mt-5">
+
+          <button
+            onClick={() => setIsMultiplayer(true)}
+            className="bg-purple-500 text-white px-6 py-3 rounded-lg hover:bg-purple-600"
+          >
+            Local Multiplayer Mode
+          </button>
+
+          </div>
+        
         </div>
         <div className="flex justify-center mt-4">
         <Link

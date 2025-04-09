@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import StartScreen from'./VisualStartScreen';
+import { visualQuestImages } from './VisualQuestAssets';
 
-const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty, gameStarted, setGameStarted }) => {
+
+const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty, gameStarted, setGameStarted }) => {
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
@@ -10,13 +11,32 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
 
 
-  useEffect(() => {
-    const images = {
-      1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
-      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png'],
-      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png']
+  const getRandomImages = (difficulty) => {
+    const imagesCopy = [...visualQuestImages];
+    const levelImageCount = {
+      1: 6,
+      2: 9,
+      3: 12
     };
-    const shuffledCards = [...images[difficulty], ...images[difficulty]]
+    
+    const count = levelImageCount[difficulty] || 6;
+  
+    const selected = [];
+    console.log("Selected images:", selected);
+  
+    for (let i = 0; i < count; i++) {
+      const randIndex = Math.floor(Math.random() * imagesCopy.length);
+      selected.push(imagesCopy[randIndex]);
+      imagesCopy.splice(randIndex, 1); // Ensure no duplicates
+    }
+  
+    return selected;
+  };
+  
+  
+  useEffect(() => {
+    const selectedImages = getRandomImages(difficulty);
+    const shuffledCards = [...selectedImages, ...selectedImages]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
     setCards(shuffledCards);
@@ -84,15 +104,11 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   };
 
   const resetGame = (level) => {
-    const images = {
-      1: ['img1.png', 'img2.png', 'img3.png', 'img4.png', 'img5.png', 'img6.png'],
-      2: ['2img1.png', '2img2.png', '2img3.png', '2img4.png', '2img5.png', '2img6.png', '2img7.png', '2img8.png', '2img9.png'],
-      3: ['3img1.png', '3img2.png', '3img3.png', '3img4.png', '3img5.png', '3img6.png', '3img7.png', '3img8.png', '3img9.png', '3img10.png', '3img11.png', '3img12.png']
-    };
-    const shuffledCards = [...images[difficulty], ...images[difficulty]]
+    const selectedImages = getRandomImages(level);
+    const shuffledCards = [...selectedImages, ...selectedImages]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
-
+  
     setCards(shuffledCards);
     setMatchedCards([]);
     setFlippedCards([]);
@@ -101,6 +117,7 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
     setPoints(0);
     setDifficulty(level);
   };
+  
 
   return gameOver ? (
     <div className="vg-header text-center">
@@ -172,8 +189,8 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
           >
             {(flippedCards.includes(index) || matchedCards.includes(index)) && (
               <img
-                src={`/images/${card.img}`}
-                alt={`Card ${card.img}`}
+                src={`${card.img}`}
+                alt={`${card.img}`}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -199,4 +216,4 @@ const GameGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, se
   );
 };
 
-export default GameGrid;
+export default VisualQuestGrid;
