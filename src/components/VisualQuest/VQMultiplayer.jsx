@@ -155,16 +155,13 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
       <br />
       <div className = "player2Score text-2xl"> Player 2 Score: {player2Score} </div>
       <br></br>
-      {(player1Score > player2Score) ? 
-        (
-            <div className="p1turn text-3xl">
-                Player 1 Wins!
-            </div>
-        ) : (
-            <div className="p2turn text-3xl">
-                Player 2 Wins!
-            </div>
-        )}
+      {player1Score === player2Score ? (
+        <div className="text-3xl">It's a Draw!</div>
+      ) : player1Score > player2Score ? (
+        <div className="p1turn text-3xl">Player 1 Wins!</div>
+      ) : (
+        <div className="p2turn text-3xl">Player 2 Wins!</div>
+      )}
       <br />
       <h2 className="text-white text-2xl font-bold">
         Play again?

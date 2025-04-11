@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
 
-const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer }) => {
+const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer, setGameOver }) => {
   const [showStartScreen, setShowStartScreen] = useState(true);
 
   const startGame = (difficulty) => {
     setDifficulty(difficulty);
     setShowStartScreen(false);
     setGameStarted(true);
+    setIsMultiplayer(false);
+    setGameOver(false);
   };
 
   const startMultiplayer = () =>{
     setIsMultiplayer(true);
     setShowStartScreen(false);
     setGameStarted(true);
+    setGameOver(false);
   }
 
   return showStartScreen ? (

@@ -35,6 +35,7 @@ const VisualGame = () => {
           setDifficulty={setDifficulty} 
           setGameStarted={setGameStarted} 
           setIsMultiplayer={setIsMultiplayer}
+          setGameOver = {setGameOver}
         />
       ) : isMultiplayer ? (
         <div>
