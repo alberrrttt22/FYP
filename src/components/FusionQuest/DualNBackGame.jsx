@@ -4,7 +4,9 @@ import AudioPlayer from './AudioPlayer.jsx';
 import { generateRandomStimulus, isMatchNBack } from './StimulusController.jsx';
 import ScoreDisplay from './ScoreDisplay.jsx';
 import RepDisplay from './RepDisplay.jsx';
-import '../../styles/FusionGame.css'
+import '../../styles/FusionGame.css';
+import { saveScore } from "../../firestoreHelpers"; 
+import { useAuth } from "../../context/AuthContext";
 
 const DualNBackGame = ({ n }) => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -17,7 +19,7 @@ const DualNBackGame = ({ n }) => {
   const [score, setScore] = useState({ correct: 0, incorrect: 0 });
 
   const [responseGiven, setResponseGiven] = useState({ visual: false, audio: false });
-  const responseGivenRef = useRef({visual : false, audio: false}); //Ref
+  const responseGivenRef = useRef({visual : false, audio: false});
 
   const [isVisible, setIsVisible] = useState(true);
   const [reps, setReps] = useState(0);
@@ -25,6 +27,10 @@ const DualNBackGame = ({ n }) => {
   const totalReps = 25;
   const intervalRef = useRef(null) //Ref
   const [gameOver, setGameOver] = useState(false);
+
+  const {user} = useAuth();
+
+  const accuracy = (((score.correct)/(score.correct + score.incorrect)) * 100).toFixed(1)
 
   const restartGame = () => {
     setGameStarted(false);
@@ -119,7 +125,12 @@ const DualNBackGame = ({ n }) => {
         return () => { clearTimeout(gameOverTimeout); }
     }}, [reps]);
 
-    
+  
+  useEffect(() => {
+        if (gameOver && user) {
+          saveScore(user.uid, "FusionQuest", `${n}-back`, `${accuracy}%` );
+        }
+    }, [gameOver, user, accuracy]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -200,7 +211,7 @@ const DualNBackGame = ({ n }) => {
       </div>
     )}
     </div>) : 
-    (<div className='summary'>
+    (<div className='summary bg-white p-8 rounded-2xl shadow-lg bg-opacity-80'>
       <h1 className= "text-2xl">Your Score:</h1>
       <div className="text-2xl">{(((score.correct)/(score.correct + score.incorrect)) * 100).toFixed(1)}%</div>
       <ScoreDisplay score={score} shake = {shakeIncorrect} />

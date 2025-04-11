@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { visualQuestImages } from './VisualQuestAssets';
+import { saveScore } from "../../firestoreHelpers"; 
+import { useAuth } from "../../context/AuthContext";
 
 
 const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficulty, setDifficulty, gameStarted, setGameStarted }) => {
@@ -9,8 +11,9 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   const [matchedCards, setMatchedCards] = useState([]);
   const [points, setPoints] = useState(0);
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
+  const {user} = useAuth();
 
-
+  const totalPoints = points + timeLeft
   const getRandomImages = (difficulty) => {
     const imagesCopy = [...visualQuestImages];
     const levelImageCount = {
@@ -32,7 +35,16 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   
     return selected;
   };
+
   
+
+  useEffect(() => {
+    if (gameOver && user) {
+      saveScore(user.uid, "VisualQuest", difficulty , totalPoints);
+    }
+  }, [gameOver, user, totalPoints]);
+
+
   
   useEffect(() => {
     const selectedImages = getRandomImages(difficulty);
@@ -113,7 +125,13 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
     setMatchedCards([]);
     setFlippedCards([]);
     setGameOver(false);
-    setTimeLeft(60);
+    if (level === 1){
+      setTimeLeft(30);
+    } else if (level === 2){
+      setTimeLeft(40);
+    } else {
+      setTimeLeft(50);
+    }
     setPoints(0);
     setDifficulty(level);
   };
@@ -121,7 +139,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
 
   return gameOver ? (
     <div className="vg-header text-center">
-      <p>Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
+      <p className="text-xl">Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
       <br></br>
       <h2 className="text-white text-2xl font-bold">
         {matchedCards.length === cards.length ? 'You Win! Play again?' : 'Game Over! Play again?'}

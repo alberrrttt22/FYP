@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
-import '../../styles/Piano.css'
-import songData from '../../assets/songsData.json'
+import '../../styles/Piano.css';
+import songData from '../../assets/songsData.json';
+import { saveScore } from "../../firestoreHelpers"; 
+import { useAuth } from "../../context/AuthContext";
 
 
 const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentIndex}) => {
@@ -10,6 +12,8 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
 
     const songName = songData.songNames[song];
     const songNotes = songData.songs[song];
+    const {user} = useAuth();
+    const accuracy = ((completedNotes.length)/(completedNotes.length + wrongNotes.length)*100).toFixed(1);
     
 
     useEffect(()=> {
@@ -19,12 +23,18 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
             setCorrect(true);
             console.log({currentIndex});
         }
-        else {
+        else if (notePlayed){
             setWrongNotes((prevNotes) => [...prevNotes, notePlayed]);
             console.log("Wrong notes recorded");
             setCorrect(false);
         }
     }, [notePlayed]);
+
+    useEffect(() => {
+        if (currentIndex === songNotes.length && user) {
+          saveScore(user.uid, "SoundQuest", songName, `${accuracy}%`, "Freeplay");
+        }
+    }, [currentIndex, user, accuracy, songName]);
 
     return (
         <div className="song-tester">

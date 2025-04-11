@@ -3,11 +3,25 @@ import {Link} from 'react-router-dom';
 import '../styles/SoundGame.css';
 import Piano from '../components/SoundQuest/Piano.jsx';
 import PianoStartScreen from '../components/SoundQuest/PianoStartScreen.jsx';
+import {useAuth} from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import {logout} from '../auth.js'
 
 const SoundGame = () => {
 
     const [gameMode, setGameMode] = useState(null); 
     const [gameStarted, setGameStarted] = useState(false);
+    const { user } = useAuth();
+    const firstName = user?.displayName?.split(" ")?.[0] || "friend";
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+        try {
+          await logout();
+          navigate("/");
+        } catch (error){
+          console.error("Error signing out: ", error);
+        }
+      };
 
 
     return (
@@ -28,6 +42,10 @@ const SoundGame = () => {
                 </div>
             )
             }
+            <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
+                <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
+                <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
+            </div>
         </div>
     )
 }

@@ -5,13 +5,27 @@ import Timer from '../components/VisualQuest/Timer'
 import StartScreen from '../components/VisualQuest/VisualStartScreen';
 import { Link } from 'react-router-dom';
 import VQMultiplayer from '../components/VisualQuest/VQMultiplayer';
+import {useAuth} from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import {logout} from '../auth.js'
 
 const VisualGame = () => {
-  const [timeLeft, setTimeLeft] = useState(60); // Set initial time limit
+  const [timeLeft, setTimeLeft] = useState(30); 
   const [gameOver, setGameOver] = useState(false);
   const [difficulty, setDifficulty] = useState(1); // 1 = Easy, 2 = Medium, 3 = Hard
   const [gameStarted, setGameStarted] = useState(false);
   const [isMultiplayer, setIsMultiplayer] = useState(false);
+  const { user } = useAuth();
+  const firstName = user?.displayName?.split(" ")?.[0] || "friend";
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+              try {
+                await logout();
+                navigate("/");
+              } catch (error){
+                console.error("Error signing out: ", error);
+              }
+            };
 
   return (
     <div className="vg-container flex flex-col items-center mt-10 bg-black bg-opacity-50 px-4 py-2 rounded">
@@ -80,6 +94,10 @@ const VisualGame = () => {
         </button>
         </>
       )}
+      <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
+          <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
+          <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
+      </div>
     </div>
   );
 };

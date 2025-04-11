@@ -1,13 +1,25 @@
 import React from 'react'; 
 import '../styles/GameModes.css'; 
 import { useNavigate } from 'react-router-dom';
+import {useAuth} from "../context/AuthContext";
+import { logout } from "../auth";
 
 const GameModes = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
   const handleGameMode = (gameMode) => {
     navigate(`/${gameMode}`)
     };
-
+  const { user } = useAuth();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error){
+      console.error("Error signing out: ", error);
+    }
+  };
+  const firstName = user?.displayName?.split(" ")?.[0] || "friend";
+  
   return (
     <div className="container">
       <div className="game-mode-container">
@@ -39,6 +51,10 @@ const GameModes = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
+        <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
+        <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
       </div>
     </div>
   );

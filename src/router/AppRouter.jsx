@@ -7,6 +7,9 @@ import BackgroundAudio from '../components/BackgroundAudio.jsx';
 import VisualGame from '../pages/VisualGame.jsx';
 import SoundGame from '../pages/SoundGame.jsx';
 import FusionGame from '../pages/FusionGame.jsx';
+import Login from '../pages/Login.jsx'
+
+import ProtectedRoute from '../components/ProtectedRoute.jsx';
 
 const AppRouter = () => {
 
@@ -27,10 +30,20 @@ const AppRouter = () => {
     <BackgroundAudio src={audioSrc} />
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/GameModes" element={<GameModes />} />
-      <Route path="/VisualGame" element={<VisualGame />} />
-      <Route path="/SoundGame" element={<SoundGame />} />
-      <Route path="/FusionGame" element={<FusionGame />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/GameModes" element={<ProtectedRoute>
+        <GameModes />
+        </ProtectedRoute>} />
+      <Route path="/VisualGame" element={<ProtectedRoute>
+        <VisualGame />
+        </ProtectedRoute>} />
+      <Route path="/SoundGame" element={<ProtectedRoute>
+        <SoundGame />
+        </ProtectedRoute>} />
+      <Route path="/FusionGame" element={<ProtectedRoute>
+        <FusionGame />
+        </ProtectedRoute>} />
+      
     </Routes>
     </div>
   );

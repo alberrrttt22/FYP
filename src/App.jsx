@@ -8,7 +8,7 @@ const App = () => {
   const bubbleSound = new Audio('/sounds/bubbleSound.mp3');
 
   const handlePlayButtonClick = () => {
-    navigate('/GameModes');
+    navigate('/Login');
     bubbleSound.play().catch((err) => console.error('Error playing click sound:', err));
     
   };
