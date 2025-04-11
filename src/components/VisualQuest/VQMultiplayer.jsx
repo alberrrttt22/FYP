@@ -18,6 +18,18 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
   const [gridSize, setGridSize] = useState(2);
 
+  const flipSound = new Audio('/sounds/flipcard.mp3');
+  const correctSound = new Audio('/sounds/correct-flip.mp3');
+
+  const playFlipSound = () => {
+    flipSound.currentTime = 0;
+    flipSound.play();
+  };
+
+  const playCorrectSound = () => {
+    correctSound.currentTime = 0;
+    correctSound.play();
+  };
 
   const resetGame = (gridSize) => {
     const selectedImages = getRandomImages(gridSize);
@@ -123,15 +135,6 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
     }
   };
 
-  const playFlipSound = () => {
-    const flipSound = new Audio('/sounds/flipcard.mp3');
-    flipSound.play();
-  };
-
-  const playCorrectSound = () => {
-    const correctSound = new Audio('/sounds/correct-flip.mp3');
-    correctSound.play();
-  };
 
   const showFloatingPoint = (cardIndex) => {
     const cardElement = document.querySelector(`[data-id="${cardIndex}"]`);
@@ -208,7 +211,7 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
         </div>
 
       <button
-        onClick={() => resetGame()}
+        onClick={() => resetGame(gridSize)}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"
       >
         Restart Game

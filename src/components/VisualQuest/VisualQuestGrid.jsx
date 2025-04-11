@@ -12,6 +12,20 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   const [points, setPoints] = useState(0);
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
   const {user} = useAuth();
+  
+  const flipSound = new Audio('/sounds/flipcard.mp3');
+  const correctSound = new Audio('/sounds/correct-flip.mp3');
+
+  const playFlipSound = () => {
+    flipSound.currentTime = 0;
+    flipSound.play();
+  };
+
+  const playCorrectSound = () => {
+    correctSound.currentTime = 0;
+    correctSound.play();
+  };
+
 
   const totalPoints = points + timeLeft
   const getRandomImages = (difficulty) => {
@@ -91,16 +105,6 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
       }
       setTimeout(() => setFlippedCards([]), 350);
     }
-  };
-
-  const playFlipSound = () => {
-    const flipSound = new Audio('/sounds/flipcard.mp3');
-    flipSound.play();
-  };
-
-  const playCorrectSound = () => {
-    const correctSound = new Audio('/sounds/correct-flip.mp3');
-    correctSound.play();
   };
 
   const showFloatingPoint = (cardIndex) => {

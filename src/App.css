@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Silkscreen';
-  src: url('fonts/slkscr.ttf') format('truetype'),
-       url('fonts/slkscrb.ttf') format('truetype'); /* Bold version */
+  src: url('/fonts/slkscr.ttf') format('truetype'),
+       url('/fonts/slkscrb.ttf') format('truetype'); /* Bold version */
   font-weight: normal;
   font-style: normal;
 }
