@@ -138,10 +138,10 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   
 
   return gameOver ? (
-    <div className="vg-header text-center">
-      <p className="text-xl">Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
+    <div className="vg-header text-center bg-white p-8 rounded-2xl shadow-lg bg-opacity-80">
+      <p className="text-xl text-black">Points: {points} + {timeLeft} (Time left) = {points + timeLeft}</p>
       <br></br>
-      <h2 className="text-white text-2xl font-bold">
+      <h2 className="text-white text-2xl text-black">
         {matchedCards.length === cards.length ? 'You Win! Play again?' : 'Game Over! Play again?'}
       </h2>
       <br></br>
