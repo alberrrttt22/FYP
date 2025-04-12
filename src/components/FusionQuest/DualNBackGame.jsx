@@ -184,7 +184,12 @@ const DualNBackGame = ({ n }) => {
       <AudioPlayer sound={currentStimulus?.sound} play={isVisible} />
 
       <div className="flex gap-4">
-        
+        <button
+          onClick={() => handleResponse('visual')}
+          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
+        >
+          🐚 Position Match (Press A)
+        </button>
         <button
           onClick={() => handleResponse('audio')}
           className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600"
