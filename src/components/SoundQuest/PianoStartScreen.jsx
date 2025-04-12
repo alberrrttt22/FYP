@@ -25,16 +25,15 @@ const PianoStartScreen = ({ setGameMode, setGameStarted }) => {
         <div className="p-6 max-w-[90%] mx-auto bg-opacity-70 rounded-md">
           <h2 className="text-xl font-bold text-center mb-2">🌊 The Sunken Melody 🎶</h2>
           <p className="text-lg leading-relaxed">
-            Deep beneath the ocean waves, hidden among coral reefs and shipwrecks, lies a <b>forbidden treasure chest</b>. 
+            Deep beneath the ocean waves, lies a <b>forbidden treasure chest</b>. 
             It is said that only those who <b>play the right melody</b> can unlock its secrets. The lost <b>harmonies of the sea</b> hold 
             the key—will you be the one to discover them?
           </p>
           <p className="mt-4 text-md text-gray-700 leading-relaxed">
             🎹 <strong>How to Play:</strong>
-            <br /> - Freeplay Mode: Experiment and create beautiful melodies and learn new songs.
-            <br /> - Challenge Mode: Listen carefully and repeat the notes to reveal the treasure. 
-            <br /> Genius Mode will remove key highlighting
-            <br /> - White Keys: "a" to "f" and "j" to ";" 
+            <br /> - Freeplay Mode: Learn new songs.
+            <br /> - Challenge Mode: Listen carefully and repeat the notes. Genius Mode will remove key highlighting
+            <br /> - White Keys: a, s, d, f and j, k, l, ; 
             <br /> - Black Keys: "w, e, t, i, o"
           </p>
         </div>

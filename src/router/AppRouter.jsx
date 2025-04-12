@@ -10,6 +10,8 @@ import FusionGame from '../pages/FusionGame.jsx';
 import Login from '../pages/Login.jsx'
 
 import ProtectedRoute from '../components/ProtectedRoute.jsx';
+import Dashboard from '../pages/Dashboard.jsx';
+import DashboardY from '../pages/DashboardY.jsx'
 
 const AppRouter = () => {
 
@@ -43,6 +45,10 @@ const AppRouter = () => {
       <Route path="/FusionGame" element={<ProtectedRoute>
         <FusionGame />
         </ProtectedRoute>} />
+      <Route path="/Dashboard" element={<ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>} />
+      <Route path="/DashboardY" element={<DashboardY />}/>
       
     </Routes>
     </div>

@@ -34,22 +34,20 @@ const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer, setGameO
       >
         {/* Content Inside */}
         <div className="p-6 h-68 p-4  bg-opacity-70 rounded-md ">
-          <h2 className="text-xl font-bold text-center mb-2">📜 Welcome to the Memory Quest! 🏆</h2>
+          <h2 className="text-xl font-bold text-center mb-2">📜 Welcome to the Visual Quest! 🏆</h2>
           <p className="text-lg">
-            Long ago, a powerful wizard hid magical relics within enchanted cards. Only the most
-            skilled minds can uncover them. Match the cards, prove your memory, and restore the lost relics!
+          Long ago, a powerful wizard hid magical relics beneath enchanted cards. 
+          Prove your memory, and uncover the ocean's lost treasures!
           </p>
           <p className="mt-4 text-md text-gray-700">
             🃏 How to Play:
             <br /> - Click on two cards to flip them.
             <br /> - Match all pairs before time runs out!
-            <br /> - Different modes offer increasing challenges.
+            <br /> 
 
-            <br />
             <br />
             🔥 Local Multiplayer Mode:
             <br /> - Play with a friend! 
-            <br /> - Choose from 3 grid sizes: small, medium or large.
             <br /> - Take turns, if you flip 2 matching cards, you get to flip again.
             <br /> - Highest score after all cards are flipped wins.
           </p>

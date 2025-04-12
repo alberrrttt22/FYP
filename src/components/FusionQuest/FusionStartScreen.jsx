@@ -25,13 +25,12 @@ const FusionStartScreen = ({ setGameStarted, setNBack }) => {
         <div className="p-6 max-w-[90%] mx-auto bg-opacity-70 rounded-md">
           <h2 className="text-xl font-bold text-center mb-2">🌊 Deep Sea Fusion Quest 🧠</h2>
           <p className="text-lg leading-relaxed">
-            Dive into the magical underwater world, where memory is the key to unlocking the secrets of the sea. 
-            Sea creatures and ocean sounds appear in mysterious patterns. 
-            Only the cleverest explorers can track what they saw and heard <b>N steps ago</b>! 🐙🎶
+          Dive into a magical undersea world where memory unlocks hidden secrets. 
+          Watch and listen closely—can you recall what happened N steps ago? 🐙🎶
           </p>
           <p className="mt-4 text-md text-gray-700 leading-relaxed">
             🐠 <strong>How to Play:</strong>
-            <br /> - Watch the sea creature appear in a bubble.
+            <br /> - Watch the sea creature appear in a grid.
             <br /> - Listen for an audio clip of a letter.
             <br /> - If the <b>position</b> is the same as N turns ago, press A or click the <b>🐚 Position Button</b>.
             <br /> - If the <b>sound</b> is the same as N turns ago, press L or click the <b>🎵 Sound Button</b>.

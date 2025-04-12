@@ -95,21 +95,20 @@ const DualNBackGame = ({ n }) => {
           setShakeIncorrect(true); 
           setTimeout(() => setShakeIncorrect(false), 500); 
         }
-      }, 1900);
+      }, 2400);
     }
-    // Hide the stimulus after a timeout
+    // Hide the stimulus after 500ms
     setTimeout(() => {
       setIsVisible(false);
-    }, 1000);
+    }, 500);
   };
 
 
 
-   // Setup the interval to run the cycle every 2 seconds
    useEffect(() => {
     if (gameStarted){
       runCycle();
-      intervalRef.current = setInterval(runCycle, 2000); // 2 seconds per cycle
+      intervalRef.current = setInterval(runCycle, 2500); // 2.5 seconds per cycle
     }
     return () => {
       clearInterval(intervalRef.current);
@@ -176,7 +175,7 @@ const DualNBackGame = ({ n }) => {
       (<button className="start-button" onClick = {() => startGame()}>Start Game</button>)
       : 
       (
-      <div className="flex flex-col items-center gap-4 mt-6">
+      <div className="flex flex-col items-center gap-4 ">
         <Grid
         position={currentStimulus?.position}
         icon={currentStimulus?.icon}
@@ -185,12 +184,7 @@ const DualNBackGame = ({ n }) => {
       <AudioPlayer sound={currentStimulus?.sound} play={isVisible} />
 
       <div className="flex gap-4">
-        <button
-          onClick={() => handleResponse('visual')}
-          className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-        >
-          🐚 Position Match (Press A)
-        </button>
+        
         <button
           onClick={() => handleResponse('audio')}
           className="bg-indigo-500 text-white px-6 py-2 rounded hover:bg-indigo-600"
@@ -198,10 +192,10 @@ const DualNBackGame = ({ n }) => {
           🎵 Sound Match (Press L)
         </button>
       </div>
-
+      <div className="bg-white p-2 rounded-2xl shadow-lg opacity-80">
       <RepDisplay reps = {reps} totalReps = {totalReps}/>
       <ScoreDisplay score={score} shake = {shakeIncorrect} />
-      
+      </div>
       <button
         onClick={() => restartGame()}
         className="absolute top-0 right-0 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 m-4"

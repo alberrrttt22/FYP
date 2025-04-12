@@ -29,7 +29,7 @@ const VisualGame = () => {
 
   return (
     <div className="vg-container flex flex-col items-center mt-10 bg-black bg-opacity-50 px-4 py-2 rounded">
-      <h1 className="vg-header text-3xl font-bold mb-4">Memory Quest</h1>
+    
       {!gameStarted ? (
         <StartScreen 
           setDifficulty={setDifficulty} 
@@ -93,12 +93,13 @@ const VisualGame = () => {
             Instructions / Local Multiplayer
         
         </button>
-        </>
-      )}
-      <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
+        <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
           <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
           <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
-      </div>
+        </div>
+        </>
+      )}
+      
     </div>
   );
 };

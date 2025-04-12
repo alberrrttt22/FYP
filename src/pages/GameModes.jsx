@@ -23,7 +23,7 @@ const GameModes = () => {
   return (
     <div className="container">
       <div className="game-mode-container">
-        <h1 className="game-mode-title">Choose your game mode</h1>
+        
         <div className="game-mode-selection">
           <div className="game-mode-item">
             <img className="game-logo" src="/images/sound-quest-logo.jpg" alt="Sound Memory" onClick={() => handleGameMode('SoundGame')} />
@@ -52,7 +52,12 @@ const GameModes = () => {
           </div>
         </div>
       </div>
-      <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
+      <button 
+          className="font-bold absolute top-1 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700"
+        >
+        Dashboard
+      </button>
+      <div className="absolute flex flex-col justify-center items-center bg-opacity-100 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
         <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
         <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
       </div>

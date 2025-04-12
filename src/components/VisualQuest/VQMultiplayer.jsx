@@ -16,7 +16,7 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
   const [currentTurn, setCurrentTurn] = useState(1);
 
-  const [gridSize, setGridSize] = useState(2);
+  const [gridSize, setGridSize] = useState(1);
 
   const flipSound = new Audio('/sounds/flipcard.mp3');
   const correctSound = new Audio('/sounds/correct-flip.mp3');
@@ -150,7 +150,7 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
   
 
   return gameOver ? (
-    <div className="vg-header text-center">
+    <div className="vg-header bg-white p-8 rounded-2xl  bg-opacity-100 text-center">
       <div className = "player1Score text-2xl"> Player 1 Score: {player1Score} </div>
       <br />
       <div className = "player2Score text-2xl"> Player 2 Score: {player2Score} </div>
@@ -163,18 +163,18 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
         <div className="p2turn text-3xl">Player 2 Wins!</div>
       )}
       <br />
-      <h2 className="text-white text-2xl font-bold">
+      {/* <h2 className="text-white text-2xl font-bold">
         Play again?
-      </h2>
+      </h2> */}
       <br></br>
       <div className="flex flex-row justify-center items-center gap-4">
             <button
               onClick={() => resetGame(1)}
               className="bg-green-500 text-white p-3 rounded hover:bg-green-600 mb-4 w-50 h-50 "
             >
-              Small Grid
+              Play again?
             </button>
-            <button
+            {/* <button
               onClick={() => resetGame(2)}
               className="bg-yellow-500 text-white p-3 rounded hover:bg-yellow-600 mb-4 w-50 h-50"
             >
@@ -185,21 +185,23 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
               className="bg-red-500 text-white p-3 rounded hover:bg-red-600 mb-4 w-50 h-50"
             >
               Large Grid
-            </button>
+            </button> */}
 
           </div>
     </div>
   ) : (
     <div>
-        <div className = "text-center">
-      
-            <p className=" text-2xl player1Score ">
+        <div className = "text-center flex flex-col justify-center items-center ">
+
+            <div className="flex flex-col m-5 justify-center items-center bg-white  w-80 rounded-2xl bg-opacity-100">
+             <p className=" text-2xl player1Score">
                 Player 1 Points: {player1Score}
             </p>
-
-            <p className=" text-2xl mb-5 player2Score">
+            
+            <p className=" text-2xl player2Score">
                 Player 2 Points: {player2Score}
             </p>
+            </div>
 
             <p className= {`text-4xl mb-5 ${(currentTurn === 1) ? 'p1turn' : 'p2turn'}`}>
                 Player {currentTurn}'s Turn
@@ -213,7 +215,7 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
       >
         Restart Game
       </button>
-      <div className="absolute top-11 right-0 m-4">
+      {/* <div className="absolute top-11 right-0 m-4">
           <select
             value={gridSize}
             onChange={(e) => resetGame(parseInt(e.target.value))}
@@ -223,7 +225,7 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
             <option value="2">Medium Grid</option>
             <option value="3">Large Grid</option>
           </select>
-      </div>
+      </div> */}
       <div
   className={`grid gap-4`}
   style={{
