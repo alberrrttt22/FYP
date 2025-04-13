@@ -11,6 +11,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   const [matchedCards, setMatchedCards] = useState([]);
   const [points, setPoints] = useState(0);
   const [floatingPoint, setFloatingPoint] = useState({ visible: false, position: { x: 0, y: 0 } });
+  const [isLoading, setIsLoading] = useState(true);
   const {user} = useAuth();
   
   const flipSound = new Audio('/sounds/flipcard.mp3');
@@ -70,13 +71,28 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   }, [gameOver, user, totalPoints]);
 
 
+  const preloadImages = (imageArray) => {
+    return Promise.all(
+      imageArray.map((src) => {
+        return new Promise((resolve) => {
+          const img = new Image();   
+          img.src = src;             
+          img.onload = resolve;      
+        });
+      })
+    );
+  };
   
   useEffect(() => {
     const selectedImages = getRandomImages(difficulty);
-    const shuffledCards = [...selectedImages, ...selectedImages]
-      .sort(() => Math.random() - 0.5)
-      .map((img, index) => ({ id: index, img, flipped: false }));
-    setCards(shuffledCards);
+    setIsLoading(true);
+    preloadImages(selectedImages).then(() => {
+      const shuffledCards = [...selectedImages, ...selectedImages]
+        .sort(() => Math.random() - 0.5)
+        .map((img, index) => ({ id: index, img, flipped: false }));
+      setCards(shuffledCards);
+      setIsLoading(false);
+    });
   }, [difficulty]);
 
   useEffect(() => {
@@ -114,7 +130,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
         setPoints(points + 1);
         showFloatingPoint(second); // Trigger the floating point animation
       }
-      setTimeout(() => setFlippedCards([]), 350);
+      setTimeout(() => setFlippedCards([]), 500);
     }
   };
 
@@ -132,25 +148,34 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
 
   const resetGame = (level) => {
     const selectedImages = getRandomImages(level);
+  setIsLoading(true);
+  preloadImages(selectedImages).then(() => {
     const shuffledCards = [...selectedImages, ...selectedImages]
       .sort(() => Math.random() - 0.5)
       .map((img, index) => ({ id: index, img, flipped: false }));
-  
+
     setCards(shuffledCards);
     setMatchedCards([]);
     setFlippedCards([]);
     setGameOver(false);
-    if (level === 1){
+    setPoints(0);
+    setDifficulty(level);
+
+    if (level === 1) {
       setTimeLeft(30);
-    } else if (level === 2){
+    } else if (level === 2) {
       setTimeLeft(40);
     } else {
       setTimeLeft(50);
     }
-    setPoints(0);
-    setDifficulty(level);
+
+    setIsLoading(false);
+  });
   };
-  
+
+  if (isLoading) {
+    return <div className="text-center text-2xl mt-10">Loading cards...</div>;
+  }
 
   return gameOver ? (
     <div className="vg-header text-center bg-white p-8 rounded-2xl shadow-lg bg-opacity-80">
