@@ -169,7 +169,7 @@ const DualNBackGame = ({ n }) => {
 
   return (
     !gameOver ? 
-      (<div className="dnb-container flex flex-col items-center gap-4 mt-6">
+      (<div className="dnb-container flex flex-col items-center gap-4 mt-24">
       <h1 className="text-3xl font-bold ">Fusion Quest ({n}-Back)</h1>
       {!gameStarted ? 
       (<button className="start-button" onClick = {() => startGame()}>Start Game</button>)

@@ -3,6 +3,7 @@ import '../styles/GameModes.css';
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../context/AuthContext";
 import { logout } from "../auth";
+import {Link} from 'react-router-dom';
 
 const GameModes = () => {
   const navigate = useNavigate(); 
@@ -52,14 +53,15 @@ const GameModes = () => {
           </div>
         </div>
       </div>
-      <button 
+      <Link
+          to="/Dashboard"
           className="font-bold absolute top-1 left-0 m-3 bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-700"
-        >
-        Dashboard
-      </button>
-      <div className="absolute flex flex-col justify-center items-center bg-opacity-100 top-0 right-30 m-4 bg-white p-2 rounded-2xl shadow-lg">
-        <div className="welcome-message text-2xl">{`Welcome, ${firstName}! 👋`}</div>
-        <button className ="underline hover:bg-blue-300 sign-out text-sm rounded-xl" onClick = {handleLogout}>Sign out</button>
+      >
+          Dashboard
+      </Link>
+      <div className="absolute flex flex-col justify-center items-center bg-opacity-80 top-0 right-0 m-4 pr-1 pl-1 ">
+        <div className="welcome-message text-sm text-white ">{`Welcome, ${firstName}! `}</div>
+        <button className ="underline hover:bg-blue-700 sign-out text-xs rounded-xl text-white" onClick = {handleLogout}>Sign out</button>
       </div>
     </div>
   );

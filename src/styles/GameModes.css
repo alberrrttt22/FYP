@@ -8,7 +8,7 @@ body, html, #root {
 .container {
     overflow: hidden;
     position: fixed;
-    background-image: url('/images/underwater.jpg'); 
+    background-image: url('/images/gameModes.png'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 

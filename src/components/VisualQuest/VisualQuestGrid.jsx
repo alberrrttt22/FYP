@@ -52,9 +52,20 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
 
   
 
+
   useEffect(() => {
+    let difficultyWord = "";
+    if (difficulty === 1){
+      difficultyWord = "Easy";
+    }
+    else if (difficulty === 2){
+      difficultyWord = "Medium";
+    }
+    else if (difficulty === 3){
+      difficultyWord = "Hard";
+    }
     if (gameOver && user) {
-      saveScore(user.uid, "VisualQuest", difficulty , totalPoints);
+      saveScore(user.uid, "VisualQuest", difficultyWord , totalPoints);
     }
   }, [gameOver, user, totalPoints]);
 
