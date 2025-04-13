@@ -130,7 +130,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
         setPoints(points + 1);
         showFloatingPoint(second); // Trigger the floating point animation
       }
-      setTimeout(() => setFlippedCards([]), 500);
+      setTimeout(() => setFlippedCards([]), 350);
     }
   };
 

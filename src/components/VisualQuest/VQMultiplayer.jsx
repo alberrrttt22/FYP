@@ -18,6 +18,8 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
   const [gridSize, setGridSize] = useState(1);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const flipSound = new Audio('/sounds/flipcard.mp3');
   const correctSound = new Audio('/sounds/correct-flip.mp3');
 
@@ -33,18 +35,24 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
 
   const resetGame = (gridSize) => {
     const selectedImages = getRandomImages(gridSize);
-    const shuffledCards = [...selectedImages, ...selectedImages]
-      .sort(() => Math.random() - 0.5)
-      .map((img, index) => ({ id: index, img, flipped: false }));
+    setIsLoading(true);
+
+    preloadImages(selectedImages).then(() => {
+      const shuffledCards = [...selectedImages, ...selectedImages]
+        .sort(() => Math.random() - 0.5)
+        .map((img, index) => ({ id: index, img, flipped: false }));
+      setCards(shuffledCards);
+      setMatchedCards([]);
+      setFlippedCards([]);
+      setGameOver(false);
+      setCurrentTurn(1);
+      setPlayer1Score(0);
+      setPlayer2Score(0);
+      setGridSize(gridSize);
+      setIsLoading(false);
+    });
   
-    setCards(shuffledCards);
-    setMatchedCards([]);
-    setFlippedCards([]);
-    setGameOver(false);
-    setCurrentTurn(1);
-    setPlayer1Score(0);
-    setPlayer2Score(0);
-    setGridSize(gridSize);
+    
   };
 
   const getRandomImages = (size) => {
@@ -67,15 +75,32 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
     }
     return selected;
   };
+
+  const preloadImages = (imageArray) => {
+    return Promise.all(
+      imageArray.map((src) => {
+        return new Promise((resolve) => {
+          const img = new Image();   
+          img.src = src;             
+          img.onload = resolve;      
+        });
+      })
+    );
+  };
   
   
   useEffect(() => {
     const selectedImages = getRandomImages(gridSize);
-    const shuffledCards = [...selectedImages, ...selectedImages]
-      .sort(() => Math.random() - 0.5)
-      .map((img, index) => ({ id: index, img, flipped: false }));
-    setCards(shuffledCards);
-  }, []);
+    setIsLoading(true);
+    preloadImages(selectedImages).then(() => {
+      const shuffledCards = [...selectedImages, ...selectedImages]
+        .sort(() => Math.random() - 0.5)
+        .map((img, index) => ({ id: index, img, flipped: false }));
+      setCards(shuffledCards);
+      setIsLoading(false);
+    });
+  }, [gridSize]);
+
 
   useEffect(() => {
     if (gameOver && matchedCards.length === cards.length && matchedCards.length !== 0) {
