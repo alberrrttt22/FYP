@@ -19,7 +19,7 @@ const Login = () => {
         onClick={async () => {
             const user = await signInWithGoogle();
             if (user){
-                navigate("/GameModes");
+                navigate("/Dashboard");
             }
         }}
         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-md"

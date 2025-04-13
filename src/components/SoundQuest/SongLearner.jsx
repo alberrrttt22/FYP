@@ -51,8 +51,16 @@ const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIn
           className={`note current ${index === 0 ? 'next-note' : 'rest-note'}`}>{note}</span>
         ))}
       </div>
-
-      {currentIndex !== songNotes.length &&<button className="restart-button" onClick={() => { setCurrentIndex(0); setCompletedNotes([]); setDisplay(false); }}>Restart?</button>}
+      <div className="flex justify-center gap-2">
+      {currentIndex !== songNotes.length &&<button className="restart-button" onClick={() => 
+        { 
+        setCurrentIndex(0); 
+        setCompletedNotes([]); 
+        setDisplay(false); }}
+        >
+          Restart?
+        </button>
+        }
 
       {currentIndex === songNotes.length &&
         <div>
@@ -64,6 +72,7 @@ const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIn
         </div>
       }
     <button className="test-button" onClick={() => setTestMode(true)} >Test yourself</button>
+    </div>
     </div>
   );
 };

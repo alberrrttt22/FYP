@@ -62,7 +62,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
       difficultyWord = "Medium";
     }
     else if (difficulty === 3){
-      difficultyWord = "Hard";
+      difficultyWord = "Tough";
     }
     if (gameOver && user) {
       saveScore(user.uid, "VisualQuest", difficultyWord , totalPoints);
@@ -177,7 +177,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
               onClick={() => resetGame(3)}
               className="bg-red-500 text-white p-3 rounded hover:bg-blue-600 mb-4 w-24 h-12"
             >
-              Hard
+              Tough
             </button>
           </div>
     </div>

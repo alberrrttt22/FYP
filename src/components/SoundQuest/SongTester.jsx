@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import '../../styles/Piano.css';
 import songData from '../../assets/songsData.json';
 import { saveScore } from "../../firestoreHelpers"; 
@@ -9,6 +9,8 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
     const [completedNotes, setCompletedNotes] = useState([]);
     const [wrongNotes, setWrongNotes] = useState([]);
     const [correct, setCorrect] = useState(null);
+    const [isStarted, setIsStarted] = useState(false);
+    const hasStartedRef = useRef(false);
 
     const songName = songData.songNames[song];
     const songNotes = songData.songs[song];
@@ -16,19 +18,42 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
     const accuracy = ((completedNotes.length)/(completedNotes.length + wrongNotes.length)*100).toFixed(1);
     
 
+
     useEffect(()=> {
+    
+        if (!notePlayed) {
+            hasStartedRef.current = true;
+            return;
+        }
+
+        if (!hasStartedRef.current) {
+            hasStartedRef.current = true;
+            return;
+        }
+
         if (notePlayed && notePlayed === songNotes[currentIndex]){
             setCompletedNotes((prevNotes) => [...prevNotes, notePlayed]);
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setCorrect(true);
             console.log({currentIndex});
+            setIsStarted(true);
         }
         else if (notePlayed){
             setWrongNotes((prevNotes) => [...prevNotes, notePlayed]);
-            console.log("Wrong notes recorded");
             setCorrect(false);
+            setIsStarted(true);
         }
     }, [notePlayed]);
+
+
+    useEffect(()=>{
+        setCurrentIndex(0);
+        setCorrect(null);
+        setWrongNotes([]);
+        setCompletedNotes([]);
+        setIsStarted(false);
+    }, [songName]);
+
 
     useEffect(() => {
         if (currentIndex === songNotes.length && user) {
@@ -43,13 +68,14 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
         <div>
         <div className="song-title">Try playing: {songName}</div>
         <div className="feedback-container">
-            <div className={`${correct === null ? '' : correct ? 'correct' : 'wrong'} feedback`} />
+            <div className={`feedback ${!isStarted ? 'neutral' : correct ? 'correct' : 'wrong'}`} />
         </div>
         <button className="test-restart-button" onClick={()=> 
         {setCurrentIndex(0);
          setCorrect(null);
          setWrongNotes([]);
          setCompletedNotes([]);
+         setIsStarted(false);
         }}> Restart </button>
         <button className="practice-button"onClick={()=> setTestMode(false)}>Back to practice</button>
         </div>}
@@ -63,6 +89,7 @@ const SongTester = ({song, notePlayed, setTestMode, currentIndex, setCurrentInde
          setCorrect(null);
          setWrongNotes([]);
          setCompletedNotes([]);
+         setIsStarted(false);
         }}> Restart </button>
         <button className="practice-button"onClick={()=> setTestMode(false)}>Back to practice</button>
         </div>}

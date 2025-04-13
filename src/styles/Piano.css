@@ -279,6 +279,10 @@ background: rgb(36, 150, 51);
   transition: transform 0.2s ease-in-out;
 }
 
+.neutral {
+  background-color: rgb(192, 191, 191);
+}
+
 .correct {
   background-color: green;
   animation: scaleEffect 0.2s ease-in-out;

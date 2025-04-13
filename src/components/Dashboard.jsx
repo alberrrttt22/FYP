@@ -6,7 +6,8 @@ const formatDate = (isoString) => {
   return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
-const ScoreCard = ({ title, scores, isSongMode = false }) => {
+
+const ScoreCard = ({ title, scores, isSongMode = false, showPercentage = true }) => {
     if (!scores || scores.length === 0) {
       return (
         <div className="bg-white/80 rounded-2xl shadow-xl p-4 w-full max-w-xs min-h-[260px] flex flex-col justify-between">
@@ -45,7 +46,7 @@ const ScoreCard = ({ title, scores, isSongMode = false }) => {
   
         <div className="mb-3 text-center text-xs text-green-700 font-semibold">
           🏆 Highest Score: {overallBest.score}
-          {typeof overallBest.score === 'number' && overallBest.score > 1 ? '%' : ''}
+          {showPercentage && typeof overallBest.score === 'number' && overallBest.score > 1 ? '%' : ''}
         </div>
   
         <ul className="space-y-2">
@@ -57,7 +58,7 @@ const ScoreCard = ({ title, scores, isSongMode = false }) => {
                 </span>
                 <span>
                   {entry.score}
-                  {typeof entry.score === 'number' && entry.score > 1 ? '%' : ''}
+                  {showPercentage && typeof entry.score === 'number' && entry.score > 1 ? '%' : ''}
                 </span>
               </div>
               <div className="text-[11px] text-gray-500 text-right">
@@ -95,10 +96,12 @@ const Dashboard = ({ userData }) => {
         <ScoreCard
           title="Sound Quest - Challenge"
           scores={getScores('SoundQuest', 'Challenge')}
+          showPercentage ={false}
         />
         <ScoreCard
           title="Visual Quest"
           scores={getScores('VisualQuest')}
+          showPercentage={false}
         />
         <ScoreCard
           title="Fusion Quest"
