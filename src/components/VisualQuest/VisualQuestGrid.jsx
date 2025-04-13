@@ -147,7 +147,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   };
 
   const resetGame = (level) => {
-    const selectedImages = getRandomImages(level);
+  const selectedImages = getRandomImages(level);
   setIsLoading(true);
   preloadImages(selectedImages).then(() => {
     const shuffledCards = [...selectedImages, ...selectedImages]
@@ -174,7 +174,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
   };
 
   if (isLoading) {
-    return <div className="text-center text-2xl mt-10">Loading cards...</div>;
+    return <div className="text-center bg-white p-2  bg-opacity-80 text-black text-2xl mt-10">Loading cards...</div>;
   }
 
   return gameOver ? (

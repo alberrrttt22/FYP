@@ -173,6 +173,10 @@ const VQMultiplayer = ({ gameOver, setGameOver, gameStarted, setGameStarted }) =
     }
   };
   
+  
+  if (isLoading) {
+    return <div className="text-center bg-white p-2  bg-opacity-80 text-black text-2xl mt-10">Loading cards...</div>;
+  }
 
   return gameOver ? (
     <div className="vg-header bg-white p-8 rounded-2xl  bg-opacity-80 text-center">
