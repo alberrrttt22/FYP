@@ -64,7 +64,7 @@ const StartScreen = ({ setDifficulty, setGameStarted, setIsMultiplayer, setGameO
             Medium
           </button>
           <button onClick={() => startGame(3)} className="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600">
-            Hard
+            Tough
           </button>
 
           </div>

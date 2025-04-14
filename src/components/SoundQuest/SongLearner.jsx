@@ -51,8 +51,10 @@ const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIn
           className={`note current ${index === 0 ? 'next-note' : 'rest-note'}`}>{note}</span>
         ))}
       </div>
-      <div className="flex justify-center gap-2">
-      {currentIndex !== songNotes.length &&<button className="restart-button" onClick={() => 
+      <div className="">
+      {currentIndex !== songNotes.length &&
+      <div className="flex justify-center">
+      <button className="restart-button" onClick={() => 
         { 
         setCurrentIndex(0); 
         setCompletedNotes([]); 
@@ -60,18 +62,23 @@ const SongLearner = ({ song, notePlayed, setTestMode, currentIndex, setCurrentIn
         >
           Restart?
         </button>
+        <button className="test-button" onClick={() => setTestMode(true)} >Test yourself</button>
+      </div>
         }
 
       {currentIndex === songNotes.length &&
         <div>
           <p className="success-message">🎉 Well done! You've completed the song!</p>
+          <div className="flex justify-center">
           <button className="restart-button" onClick={() => { setCurrentIndex(0); setCompletedNotes([]); setDisplay(false); }}>Try again?</button>
           {!display ? <button className="display-button" onClick={() => { setDisplay(true); }}>See all notes?</button> : 
           <button className="display-button" onClick={() => { setDisplay(false); }}>Hide all notes?</button> 
           }
+          <button className="test-button" onClick={() => setTestMode(true)} >Test yourself</button>
+          </div>
         </div>
       }
-    <button className="test-button" onClick={() => setTestMode(true)} >Test yourself</button>
+    
     </div>
     </div>
   );

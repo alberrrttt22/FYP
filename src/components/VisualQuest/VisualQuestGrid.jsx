@@ -226,7 +226,7 @@ const VisualQuestGrid = ({ timeLeft, gameOver, setGameOver, setTimeLeft, difficu
           >
             <option value="1">Easy</option>
             <option value="2">Medium</option>
-            <option value="3">Hard</option>
+            <option value="3">Tough</option>
           </select>
       </div>
       <div

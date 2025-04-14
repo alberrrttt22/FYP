@@ -39,7 +39,7 @@ const ScoreCard = ({ title, scores, isSongMode = false, showPercentage = true })
     , sortedScores[0]);
   
     return (
-      <div className="bg-white/80 rounded-2xl shadow-xl p-4 w-full max-w-xs min-h-[260px]">
+      <div className="bg-white/80 rounded-2xl shadow-xl p-6 w-full max-w-xs min-h-[260px]">
         <h2 className="text-center font-bold text-sm text-gray-800 tracking-wide mb-3">
           {title}
         </h2>
@@ -53,7 +53,7 @@ const ScoreCard = ({ title, scores, isSongMode = false, showPercentage = true })
           {sortedScores.map((entry, index) => (
             <li key={index} className="text-xs text-gray-800">
               <div className="flex justify-between font-semibold">
-                <span>
+                <span className='mr-8'>
                   {isSongMode ? entry.difficulty || 'Untitled Song' : entry.difficulty || '-'}
                 </span>
                 <span>
