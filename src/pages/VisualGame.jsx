@@ -8,6 +8,7 @@ import VQMultiplayer from '../components/VisualQuest/VQMultiplayer';
 import {useAuth} from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import {logout} from '../auth.js'
+import { Helmet } from 'react-helmet';
 
 const VisualGame = () => {
   const [timeLeft, setTimeLeft] = useState(30); 
@@ -29,7 +30,9 @@ const VisualGame = () => {
 
   return (
     <div className="vg-container flex flex-col items-center mt-10 bg-black bg-opacity-50 px-4 py-2 rounded">
-    
+      <Helmet>
+        <link rel="preload" href="/images/visualgamebg.jpg" as ="image"/>
+      </Helmet>
       {!gameStarted ? (
         <StartScreen 
           setDifficulty={setDifficulty} 

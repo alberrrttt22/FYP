@@ -6,6 +6,7 @@ import DualNBackGame from '../components/FusionQuest/DualNBackGame.jsx'
 import {useAuth} from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import {logout} from '../auth.js'
+import { Helmet } from 'react-helmet';
 
 const FusionGame = () => {
 
@@ -26,6 +27,9 @@ const FusionGame = () => {
 
     return (
         <div className = "fg-container">
+          <Helmet>
+            <link rel="preload" href="/images/fusiongamebg.jpg" as="image" />
+          </Helmet>
             {!gameStarted ? (<div>
                 <FusionStartScreen setGameStarted={setGameStarted} setNBack={setNBack} /> 
                 </div>)

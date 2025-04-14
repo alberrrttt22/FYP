@@ -6,6 +6,7 @@ import PianoStartScreen from '../components/SoundQuest/PianoStartScreen.jsx';
 import {useAuth} from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import {logout} from '../auth.js'
+import { Helmet } from 'react-helmet';
 
 const SoundGame = () => {
 
@@ -26,6 +27,9 @@ const SoundGame = () => {
 
     return (
         <div className='sg-container flex flex-col items-center'>
+          <Helmet>
+            <link rel="preload" href="/images/soundgamebg.jpg" as="image" />
+          </Helmet>
             {/* <h1 className="vg-header text-3xl font-bold mb-4">Sound Quest</h1> */}
             {!gameStarted ? (
                 <PianoStartScreen setGameMode = {setGameMode} setGameStarted={setGameStarted} />

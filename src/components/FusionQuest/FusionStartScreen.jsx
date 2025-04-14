@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
+import { Helmet } from 'react-helmet';
 
 const FusionStartScreen = ({ setGameStarted, setNBack }) => {
 
@@ -10,11 +11,13 @@ const FusionStartScreen = ({ setGameStarted, setNBack }) => {
 
   return (
     <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-10">
-      {/* Scroll Background */}
+      <Helmet>
+        <link rel="preload" href="/images/scroll.jpg" as="image" />
+      </Helmet>
       <div
         className="relative w-4/5 max-w-2xl p-8 rounded-lg shadow-lg"
         style={{
-          backgroundImage: "url('/images/scroll.png')",
+          backgroundImage: "url('/images/scroll.jpg')",
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
