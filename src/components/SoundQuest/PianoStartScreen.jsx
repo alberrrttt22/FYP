@@ -17,7 +17,7 @@ const PianoStartScreen = ({ setGameMode, setGameStarted }) => {
       <div
         className="relative w-4/5 max-w-2xl p-8 rounded-lg shadow-lg"
         style={{
-          backgroundImage: "url('/images/scroll.png')",
+          backgroundImage: "url('/images/scroll.jpg')",
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
