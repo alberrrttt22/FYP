@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {useAuth} from "../context/AuthContext";
 import { logout } from "../auth";
 import {Link} from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const GameModes = () => {
   const navigate = useNavigate(); 
@@ -23,6 +24,12 @@ const GameModes = () => {
   
   return (
     <div className="container">
+      <Helmet>
+      <link rel="preload" href="/images/gameModes.jpg" as="image" />
+      <link rel="preload" href="/images/sound-quest-logo.jpg" as="image" />
+      <link rel="preload" href="/images/visual-quest-logo1.jpg" as="image" />
+      <link rel="preload" href="/images/fusion-quest-logo.jpg.jpg" as="image" />
+      </Helmet>
       <div className="game-mode-container">
         
         <div className="game-mode-selection">
