@@ -1,7 +1,7 @@
 import React from "react";
 import {auth} from '../firebase.js'
 import '../styles/Login.css'
-import {signInWithGoogle} from '../auth.js'
+import {signInWithGoogle, initializeUserDataIfNeeded} from '../auth.js'
 import {useNavigate} from "react-router-dom";
 
 const Login = () => {
@@ -18,6 +18,7 @@ const Login = () => {
       <button
         onClick={async () => {
             const user = await signInWithGoogle();
+            await initializeUserDataIfNeeded(user.uid);
             if (user){
                 navigate("/Dashboard");
             }

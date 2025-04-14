@@ -79,9 +79,9 @@ const Dashboard = ({ userData }) => {
 
   const getScores = (game, subMode = null) => {
     if (subMode) {
-      return scores[game]?.[subMode] || [];
+      return Array.isArray(scores[game]?.[subMode]) ? scores[game][subMode] : [];
     }
-    return scores[game] || [];
+    return Array.isArray(scores[game]) ? scores[game] : [];
   };
 
   return (
