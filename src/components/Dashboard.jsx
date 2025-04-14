@@ -1,5 +1,6 @@
 import React from 'react';
 import "../styles/Dashboard.css"
+import { Helmet } from 'react-helmet';
 
 const formatDate = (isoString) => {
   const date = new Date(isoString);
@@ -40,6 +41,9 @@ const ScoreCard = ({ title, scores, isSongMode = false, showPercentage = true })
   
     return (
       <div className="bg-white/80 rounded-2xl shadow-xl p-6 w-full max-w-xs min-h-[260px]">
+        <Helmet>
+        <link rel="preload" href="/images/dashboard.jpg" as="image" />
+        </Helmet>
         <h2 className="text-center font-bold text-sm text-gray-800 tracking-wide mb-3">
           {title}
         </h2>

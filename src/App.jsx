@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 // import BackgroundAudio from './components/BackgroundAudio.jsx'
 import { useNavigate} from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const App = () => {
   const navigate = useNavigate();
@@ -15,6 +16,9 @@ const App = () => {
 
   return (
     <div className='app-container' >
+      <Helmet>
+      <link rel="preload" href="/images/background.jpg" as="image" />
+      </Helmet>
       {/* <img className='title-logo' src="/images/title-logo.png"></img> */}
       <div className="play-button mt-96" onClick={handlePlayButtonClick}>
         <img 
